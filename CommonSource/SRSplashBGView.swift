@@ -6,12 +6,6 @@
 //  Copyright © 2015 KoikeLab. All rights reserved.
 //
 
-#if os(iOS)
-	import Foundation
-	import UIKit
-#elseif os(macOS)
-	import Cocoa
-#endif
 
 public struct SplashBGPosition {
     var TopLeft = CGPoint(x:0, y:1)
@@ -29,43 +23,61 @@ public protocol SRSplashViewDelegate {
     func splashAnimationEnded(startedFrom from: SplashDirection)
 }
 
-open class SRSplashBGView: SRView, CALayerDelegate {
+#if os(macOS)
+	extension SRSplashBGView: CALayerDelegate {}
+#endif
+
+open class SRSplashBGView: SRView {
     
     var delegate: SRSplashViewDelegate?
     let splashLayer = CALayer()
     fileprivate var splashColor : SRColor = SRColor.white
     fileprivate let initialSplashSize : CGFloat = 50
     
-    required override public init(frame frameRect: NSRect) {
+    required override public init(frame frameRect: SRRect) {
         super.init(frame: frameRect)
-        
-        self.wantsLayer = true
-        self.splashLayer.delegate = self
-        self.splashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-        self.layer?.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-        self.layer?.addSublayer(splashLayer)
+		
+		#if os(macOS)
+			
+			self.wantsLayer = true
+			self.splashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+			self.layer?.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+			self.layer?.addSublayer(splashLayer)
+		#elseif os(iOS)
+
+			self.layer.addSublayer(splashLayer)
+		#endif
+		
+		self.splashLayer.delegate = self
+
     }
-    
+	
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        self.wantsLayer = true
-        self.splashLayer.delegate = self
-        self.layer?.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-        self.splashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-        self.layer?.addSublayer(splashLayer)
+		#if os(macOS)
+			
+			self.wantsLayer = true
+			self.splashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+			self.layer?.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+			self.layer?.addSublayer(splashLayer)
+		#elseif os(iOS)
+			
+			self.layer.addSublayer(splashLayer)
+		#endif
     }
     
-    override open func draw(_ dirtyRect: NSRect) {
+    override open func draw(_ dirtyRect: SRRect) {
         super.draw(dirtyRect)
         // Drawing code here.
     }
-    
+	
+	#if os(macOS)
     open func draw(_ layer: CALayer, in ctx: CGContext) {
-        
+	
         if layer === splashLayer {
 
-            let circlePath = NSBezierPath()
+            let circlePath = SRBezierPath()
             ctx.beginPath()
             circlePath.appendOval(in: CGRect(x: 0 - (initialSplashSize/2),y: 0 - (initialSplashSize/2), width: initialSplashSize, height: initialSplashSize))
             ctx.addPath(circlePath.cgPath)
@@ -74,23 +86,40 @@ open class SRSplashBGView: SRView, CALayerDelegate {
             ctx.fillPath()
         }
     }
-    
-    open func initLayers() {
-        self.splashLayer.bounds = self.bounds
-
-        self.splashLayer.anchorPoint = CGPoint(x: 0, y: 0)
-
-        self.splashLayer.contentsScale = 2
-//        self.splashLayer.bounds.origin.x = self.frame.maxX
-        self.splashLayer.setNeedsDisplay()
-        
-//        splashFill(toColor: SRColor.whiteColor())
-        
-    }
 	
 	override open func fade(toAlpha alpha: CGFloat) {
 		super.fade(toAlpha: alpha)
 	}
+	
+	#elseif os(iOS)
+	override open func draw(_ layer: CALayer, in ctx: CGContext) {
+		
+		if layer === splashLayer {
+			
+			let circlePath = SRBezierPath()
+			ctx.beginPath()
+			
+			circlePath.append(SRBezierPath(ovalIn: CGRect(x: 0 - (initialSplashSize/2),y: 0 - (initialSplashSize/2),width: initialSplashSize, height: initialSplashSize)))
+			
+			ctx.addPath(circlePath.cgPath)
+			ctx.closePath()
+			ctx.setFillColor(splashColor.cgColor)
+			ctx.fillPath()
+		}
+	}
+	#endif
+
+	
+    open func initLayers() {
+		
+        self.splashLayer.bounds = self.bounds
+        self.splashLayer.anchorPoint = CGPoint(x: 0, y: 0)
+        self.splashLayer.contentsScale = 2
+        self.splashLayer.setNeedsDisplay()
+		
+    }
+	
+
 	
     open func splashFill(toColor color: SRColor,_ splashDirection: SplashDirection) {
         splashColor = color
@@ -105,17 +134,19 @@ open class SRSplashBGView: SRView, CALayerDelegate {
             CATransaction.commit()
         }
         
-//        self.layer?.addSublayer(splashLayer)
-
         CATransaction.begin()
         
         CATransaction.setCompletionBlock({
-//            self.splashLayer.transform = CATransform3DScale(self.splashLayer.transform, round(self.bounds.size.width * 3 / self.initialSplashSize), round(self.bounds.size.width * 3 / self.initialSplashSize), 1)
-            self.layer?.backgroundColor = self.splashColor.cgColor
+			
+			#if os(macOS)
+				self.layer?.backgroundColor = self.splashColor.cgColor
+			#elseif os(iOS)
+				self.layer.backgroundColor = self.splashColor.cgColor
+			#endif
+			
             self.splashLayer.backgroundColor = self.splashColor.cgColor
             self.delegate?.splashAnimationEnded(startedFrom: splashDirection)
             
-//            self.splashLayer.removeFromSuperlayer()
         })
         
         let animation = CABasicAnimation(keyPath: "transform")
@@ -128,9 +159,18 @@ open class SRSplashBGView: SRView, CALayerDelegate {
         CATransaction.commit()
     }
     
-    
-    open func layoutSublayers(of layer: CALayer) {
+	#if os(iOS)
+	
+    override open func layoutSublayers(of layer: CALayer) {
         splashLayer.setNeedsDisplay()
-        self.layer?.setNeedsDisplay()
+        self.layer.setNeedsDisplay()
     }
+	#elseif os(macOS)
+	
+	open func layoutSublayers(of layer: CALayer) {
+		splashLayer.setNeedsDisplay()
+		self.layer!.setNeedsDisplay()
+	}
+	#endif
+	
 }

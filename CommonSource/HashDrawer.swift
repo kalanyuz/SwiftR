@@ -23,8 +23,7 @@ open class HashDrawer
     //padding parameter, moves the axes further in
     open var padding = CGPoint.zero
     open var color = SRColor.white
-//    var color = SRColor.redColor()
-    
+	
     open var minimumPointsPerHashmark: CGFloat = 40
     
     // set this from UIView's contentScaleFactor to position axes with maximum accuracy
@@ -46,7 +45,7 @@ open class HashDrawer
     open var displayLabels = true
     
     open var anchorPoint = CGPoint.zero
-    
+	
     convenience init(color: SRColor, contentScaleFactor: CGFloat) {
         self.init()
         self.color = color
@@ -104,14 +103,11 @@ open class HashDrawer
         var axisPosition = position
         axisPosition.x += axeOrigin.x
         axisPosition.y += axeOrigin.y
-        
-
-        context.setFillColor(color.cgColor)
-        context.setStrokeColor(color.cgColor)
+		
 		
 		//performance hog
         drawHashmarksInRect(context,bounds: bounds, origin:axisPosition, pointsPerUnit: align(ppX))
-        drawFixedHashmarksInRect(context, bounds: bounds, origin: position, pointsPerUnit: align(ppY))
+		drawFixedHashmarksInRect(context, bounds: bounds, origin: position, pointsPerUnit: align(ppY))
 		
     }
     
@@ -195,22 +191,7 @@ open class HashDrawer
                 i += 1
             }
             
-            //                var label = formatter.stringFromNumber((origin.x-bbox.minX)/pointsPerUnit)!
-            //                if !yLockLabels[i].isEmpty {
-            //                    label = yLockLabels[i]
-            //                }
-            //
-            ////                if let topHashmarkPoint = alignedPoint(x: origin.x, y: bbox.minY, insideBounds:bounds) {
-            ////                    drawHashmarkAtLocation(topHashmarkPoint, .Left("-\(label)"))
-            ////                }
-            //
-            //                if let bottomHashmarkPoint = alignedPoint(x: origin.x, y: bbox.maxY, insideBounds:bounds) {
-            //                    drawHashmarkAtLocation(context, location: bottomHashmarkPoint, .Left(label))
-            //                }
-            //                //negative inset is out(?)set
-            //                bbox.insetInPlace(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
-            ////
-            //            }
+
             
         }
     }
@@ -294,7 +275,7 @@ open class HashDrawer
         case .bottom: dy = Constants.HashmarkSize / 2
         }
         
-        let path = NSBezierPath()
+        let path = SRBezierPath()
         path.move(to: CGPoint(x: location.x-dx, y: location.y-dy))
         path.line(to: CGPoint(x: location.x+dx, y: location.y+dy))
         
@@ -319,10 +300,16 @@ open class HashDrawer
         
         func drawAnchoredToPoint(_ context: CGContext, location: CGPoint, color: SRColor) {
             let attributes = [
-                NSFontAttributeName : NSFont.boldSystemFont(ofSize: 15),
+                NSFontAttributeName : SRFont.boldSystemFont(ofSize: 15),
                 NSForegroundColorAttributeName : color
             ]
-            var textRect = CGRect(center: location, size: text.size(withAttributes: attributes))
+			
+			#if os(macOS)
+				var textRect = CGRect(center: location, size: text.size(withAttributes: attributes))
+			#elseif os(iOS)
+				var textRect = CGRect(center: location, size: text.size(attributes: attributes))
+			#endif
+			
             switch self {
             case .top: textRect.origin.y -= textRect.size.height / 2 + AnchoredText.VerticalOffset
             case .left: textRect.origin.x -= textRect.size.width / 2 + AnchoredText.HorizontalOffset
@@ -367,10 +354,15 @@ open class HashDrawer
     
     open func getTextRect(_ center: CGPoint, text: String) -> CGRect {
         let attributes = [
-            NSFontAttributeName : NSFont.boldSystemFont(ofSize: 15),
+            NSFontAttributeName : SRFont.boldSystemFont(ofSize: 15),
             NSForegroundColorAttributeName : color
         ] as [String : Any]
+		
+		#if os(macOS)
         return CGRect(center: center, size: text.size(withAttributes: attributes))
+		#elseif os(iOS)
+		return CGRect(center: center, size: text.size(attributes: attributes))
+		#endif
     }
     
     open func align(_ coordinate: CGFloat) -> CGFloat {

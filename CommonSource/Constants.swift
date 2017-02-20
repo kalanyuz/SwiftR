@@ -14,6 +14,7 @@
 	public typealias SRBezierPath = UIBezierPath
 	public typealias SRRect = CGRect
 	public typealias SRLabel = UILabel
+	public typealias SRFont = UIFont
 #elseif os(macOS)
 	import Cocoa
 	public typealias SRColor = NSColor
@@ -21,6 +22,7 @@
 	public typealias SRBezierPath = NSBezierPath
 	public typealias SRRect = NSRect
 	public typealias SRLabel = NSTextLabel
+	public typealias SRFont = NSFont
 #endif
 
 //public extension SRView {}

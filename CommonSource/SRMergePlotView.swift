@@ -22,7 +22,14 @@ open class SRMergePlotView: SRPlotView {
         }
         set {
             self.axeLayer?.maxDataRange = newValue
-            let textSize = "\(self.maxDataRange)".size(withAttributes: [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 20)])
+			#if os(macOS)
+				
+            let textSize = "\(self.maxDataRange)".size(withAttributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+			#elseif os(iOS)
+				
+			let textSize = "\(self.maxDataRange)".size(attributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+			#endif
+			
             self.axeLayer?.padding.x = newValue < 10 ? textSize.width * 3: textSize.width
             self.axeLayer?.layer.setNeedsDisplay()
 
@@ -37,7 +44,15 @@ open class SRMergePlotView: SRPlotView {
         self.axeLayer!.layer.removeFromSuperlayer()
 //
         self.axeLayer = SRPlotAxe(frame: self.frame, axeOrigin: CGPoint.zero, xPointsToShow: totalSecondsToDisplay, yPointsToShow: totalChannelsToDisplay, numberOfSubticks: 1)
-        self.layer!.addSublayer(self.axeLayer!.layer)
+		
+		#if os(macOS)
+			
+			self.layer!.addSublayer(self.axeLayer!.layer)
+		#elseif os(iOS)
+			self.layer.addSublayer(self.axeLayer!.layer)
+		
+		#endif
+		
         self.axeLayer?.yPointsToShow = 2
         self.axeLayer?.graph.anchorPoint = CGPoint(x: 0, y: 0.5)
         self.axeLayer?.hashSystem.anchorPoint = CGPoint(x: 0, y: 0.5)
@@ -47,12 +62,12 @@ open class SRMergePlotView: SRPlotView {
         
     }
     
-    required public init(frame frameRect: NSRect) {
+    required public init(frame frameRect: SRRect) {
         super.init(frame: frameRect)
         
     }
     
-    convenience init(frame frameRect: NSRect, title: String, seconds: Double, maxRange: (CGPoint, CGPoint), samplingRatae: CGFloat, origin: CGPoint, padding: CGFloat = 0.0) {
+    convenience init(frame frameRect: SRRect, title: String, seconds: Double, maxRange: (CGPoint, CGPoint), samplingRatae: CGFloat, origin: CGPoint, padding: CGFloat = 0.0) {
         self.init(frame: frameRect)
         
     }

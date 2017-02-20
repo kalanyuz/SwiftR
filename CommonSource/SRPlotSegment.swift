@@ -137,11 +137,12 @@ open class SRPlotSegment : NSObject, CALayerDelegate {
         return ((input - Double(min))/(Double(max) - Double(min))) * (1 - minRange) + minRange
 
     }
-    
+	
+	#if os(macOS)
     override open func layer(_ layer: CALayer, shouldInheritContentsScale newScale: CGFloat, from window: NSWindow) -> Bool {
         return true
     }
-
+	#endif
     
 }
 

@@ -45,12 +45,17 @@
             
             var maxFrameWidth : CGFloat = 0
             for label in self.graphAxes.yLockLabels {
-                let textSize = label.size(withAttributes: [NSFontAttributeName: NSFont.boldSystemFont(ofSize: 20)])
+				#if os(macOS)
+                let textSize = label.size(withAttributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+				#elseif os(iOS)
+				let textSize = label.size(attributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+				#endif
+				
                 if textSize.width > maxFrameWidth {
                     maxFrameWidth = textSize.width
                     self.axeLayer?.padding.x = maxFrameWidth + 20
                     self.axeLayer?.padding.y = textSize.height + 10
-                    self.axeLayer?.hashLayer.setNeedsDisplay()
+//                    self.axeLayer?.hashLayer.setNeedsDisplay()
                 }
             }
         }
@@ -63,7 +68,7 @@
     }
 
     open var axeLayer : SRPlotAxe?
-    open var titleField : NSTextLabel?
+    open var titleField : SRLabel?
     open var segments = [SRPlotSegment]()
     open var current : SRPlotSegment?
     
@@ -77,15 +82,13 @@
     //MARK: Initialization
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        titleField = NSTextLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        titleField = SRLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         titleField?.textColor = SRColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
-        titleField?.font = NSFont.boldSystemFont(ofSize: 20)
+        titleField?.font = SRFont.boldSystemFont(ofSize: 20)
 
         self.addSubview(titleField!)
 		
-		#if os(macOS)
-        self.wantsLayer = true
-		#endif
+
 		
         //add layout constraints to the title field
         self.titleField?.translatesAutoresizingMaskIntoConstraints = false
@@ -94,7 +97,14 @@
         
         //TODO: Support for axeOrigin
         self.axeLayer = SRPlotAxe(frame: self.frame, axeOrigin: CGPoint.zero, xPointsToShow: totalSecondsToDisplay, yPointsToShow: totalChannelsToDisplay, numberOfSubticks: 1)
-        self.layer!.addSublayer(self.axeLayer!.layer)
+		
+		#if os(macOS)
+			self.wantsLayer = true
+			self.layer!.addSublayer(self.axeLayer!.layer)
+		#elseif os(iOS)
+			self.layer.addSublayer(self.axeLayer!.layer)
+		#endif
+		
         self.graphAxes.anchorPoint = CGPoint.zero
         
         
@@ -102,30 +112,31 @@
         self.axeLayer?.signalType = .split
         self.axeLayer?.hashSystem.color = SRColor.darkGray
         self.titleField?.textColor = SRColor.darkGray
-
-//        self.layer?.backgroundColor = CGColorCreateGenericRGB(0, 0 , 0, 0.05)
-//        self.layer?.borderColor = SRColor.darkGrayColor().CGColor
-//        self.layer?.borderWidth = 1
-
     
     }
     
-    required override public init(frame frameRect: NSRect) {
+    required override public init(frame frameRect: SRRect) {
         super.init(frame: frameRect)
-        titleField = NSTextLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        titleField = SRLabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.addSubview(titleField!)
 
     }
     
-    convenience init(frame frameRect: NSRect, title: String, seconds: Double, channels: Int, samplingRatae: CGFloat, padding: CGPoint = CGPoint.zero) {
+    convenience init(frame frameRect: SRRect, title: String, seconds: Double, channels: Int, samplingRatae: CGFloat, padding: CGPoint = CGPoint.zero) {
         self.init(frame: frameRect)
         self.title = "Filtered EMG Signals"
         self.totalSecondsToDisplay = CGFloat(seconds)
         self.totalChannelsToDisplay = CGFloat(channels)
         
         self.axeLayer =  SRPlotAxe(frame: self.frame, axeOrigin: CGPoint(x: 0, y: 0), xPointsToShow: totalSecondsToDisplay, yPointsToShow: totalChannelsToDisplay)
-        self.layer!.addSublayer(self.axeLayer!.layer)
-
+		
+		#if os(macOS)
+			self.wantsLayer = true
+			self.layer!.addSublayer(self.axeLayer!.layer)
+		#elseif os(iOS)
+			self.layer.addSublayer(self.axeLayer!.layer)
+		#endif
+	
         self.axeLayer!.padding = padding
         self.axeLayer!.samplingRate = samplingRate
 
@@ -163,13 +174,10 @@
         }
         
         // If the last frame crosses the limit will cause the axis to move
-//        if let last = segments.last {
-//            if last.layer.frame.origin.x > graphAxes.bounds.width * 0.9 {
-                axeLayer!.origin!.x -= graphAxes.pointsPerUnit.x / CGFloat(self.samplingRate)
-                axeLayer?.hashLayer.setNeedsDisplay()
-//            }
-//        }
-        
+		axeLayer!.origin!.x -= graphAxes.pointsPerUnit.x / CGFloat(self.samplingRate)
+		
+		axeLayer?.hashLayer.setNeedsDisplay()
+		
     }
 
     // The initial position of a segment that is meant to be displayed on the left side of the graph.
@@ -181,7 +189,6 @@
     var kSegmentInitialPosition : CGPoint {
         get {
             //something about anchor point being 0.5
-//            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x, y: (self.frame.height / 2) + graphAxes.position.y - 9)
             return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.frame.height / 2) + graphAxes.position.y -
             (self.titleField!.frame.height / 2) )
         }
@@ -193,10 +200,12 @@
         let segment = SRPlotSegment(axesSystem: axeLayer!, channels: Int(totalChannelsToDisplay))
         
         if self.window != nil {
+			#if os(macOS)
             segment.layer.contentsScale = self.window!.backingScaleFactor
+			#elseif os(iOS)
+			segment.layer.contentsScale = UIScreen.main.scale
+			#endif
         }
-//        Swift.print(segment.layer.frame, self.axeLayer?.frame, self.axeLayer?.layer.frame, self.axeLayer?.dataLayer.frame)
-//        segment.layer.backgroundColor = SRColor.redColor().CGColor
         // We add it at the front of the array because -recycleSegment expects the oldest segment
         // to be at the end of the array. As long as we always insert the youngest segment at the front
         // this will be true.
@@ -240,21 +249,45 @@
     }
     
     //MARK: SRView delegates
-    
-    override open func viewDidChangeBackingProperties() {
-        self.axeLayer?.contentsScale = self.window!.backingScaleFactor
-        self.axeLayer?.rescaleSublayers()
-    }
-    
-    override open func layout() {
-        super.layout()
-        self.axeLayer?.manageDataSublayers()
-    }
-    
+	#if os(macOS)
+	
+		override open func viewDidChangeBackingProperties() {
+			self.axeLayer?.contentsScale = self.window!.backingScaleFactor
+			self.axeLayer?.rescaleSublayers()
+		}
+		
+		override open func layout() {
+			super.layout()
+			self.axeLayer?.manageDataSublayers()
+		}
+	
+	
+	#elseif os(iOS)
+
+		override open func layoutSubviews() {
+			super.layoutSubviews()
+			self.axeLayer?.contentsScale = UIScreen.main.scale
+			self.axeLayer?.manageDataSublayers()
+			self.axeLayer?.rescaleSublayers()
+			self.axeLayer?.layer.frame = self.bounds
+			self.axeLayer?.hashLayer.frame = self.bounds
+			resizeFrameWithString(self.titleField!.text!)
+		}
+	#endif
+	
     fileprivate func resizeFrameWithString(_ title: String) {
         let nsTitle = title as NSString
-        let textSize = nsTitle.size(withAttributes: [NSFontAttributeName: NSFont.systemFont(ofSize: 15)])
-        self.titleField?.stringValue = title
+		
+		#if os(macOS)
+			
+			let textSize = nsTitle.size(withAttributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 15)])
+			self.titleField?.stringValue = title
+		#elseif os(iOS)
+			
+			let textSize = nsTitle.size(attributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 15)])
+			self.titleField?.text = title
+		#endif
+		
         self.titleField?.frame = CGRect(x: self.bounds.width/2 - textSize.width/2, y: 0, width: textSize.width, height: textSize.height)
         self.titleField?.sizeToFit()
         
@@ -264,13 +297,6 @@
         axeLayer?.layer.frame.origin = axeBounds.origin
         axeLayer?.layer.frame.size.height = self.frame.height - self.titleField!.frame.height
         axeLayer?.layer.frame.size.width = self.frame.width
-        //        axeLayer?.dataLayer.bounds.size.height = axeLayer!.layer.bounds.size.height - self.titleField!.frame.height
         axeLayer?.layer.setNeedsDisplay()
-
-        
-//        axeLayer?.layer.frame.origin = axeBounds.origin
-//        axeLayer?.layer.frame.size.height = self.frame.height - self.titleField!.frame.height
-////        axeLayer?.dataLayer.bounds.size.height = axeLayer!.layer.bounds.size.height - self.titleField!.frame.height
-//        axeLayer?.layer.setNeedsDisplay()
     }
 }

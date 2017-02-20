@@ -50,13 +50,17 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 @IBDesignable open class CountView: SRView {
-    
-    open var titleField : NSTextLabel?
-    open var countField : NSTextLabel?
+	
+    open var titleField : SRLabel?
+    open var countField : SRLabel?
 
     open var title : String = "" {
         didSet {
+			#if os(macOS)
             self.titleField?.stringValue = self.title
+			#elseif os(iOS)
+			self.titleField?.text = self.title
+			#endif
         }
     }
     
@@ -81,14 +85,18 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         didSet {
             //already has layout constraints, no need for frame adjustment
             //TODO:size adjustments for readability
-            countField?.stringValue = self.countText
+			#if os(macOS)
+			countField?.stringValue = self.countText
+			#elseif os(iOS)
+			countField?.text = self.countText
+			#endif
         }
     }
     
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
-        titleField = NSTextLabel(frame: CGRect.zero)
-        countField = NSTextLabel(frame: CGRect.zero)
+        titleField = SRLabel(frame: CGRect.zero)
+        countField = SRLabel(frame: CGRect.zero)
         
         titleField?.textColor = SRColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
         countField?.textColor = SRColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
@@ -96,8 +104,8 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         self.addSubview(titleField!)
         self.addSubview(countField!)
         
-        self.titleField?.font = NSFont.boldSystemFont(ofSize: 20)
-        self.countField?.font = NSFont.systemFont(ofSize: 100)
+        self.titleField?.font = SRFont.boldSystemFont(ofSize: 20)
+        self.countField?.font = SRFont.systemFont(ofSize: 100)
         self.countField?.translatesAutoresizingMaskIntoConstraints = false
         var countFieldConstraint = NSLayoutConstraint(item: self.countField!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         self.addConstraint(countFieldConstraint)
@@ -108,28 +116,28 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         let titleFieldConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         self.addConstraint(titleFieldConstraint)
 
+		#if os(macOS)
+			
         countField?.stringValue = "0"
         titleField?.stringValue = "Title"
-        
         self.wantsLayer = true
-//        self.layer?.backgroundColor = CGColorCreateGenericRGB(0, 0 , 0, 0.05)
-//        self.layer?.borderColor = SRColor.darkGrayColor().CGColor
-//        self.layer?.borderWidth = 1
+			
+		#elseif os(macOS)
+			
+		countField?.text = "0"
+		titleField?.text = "Title"
+			
+		#endif
 
     }
     
-    override open func draw(_ dirtyRect: NSRect) {
-        super.draw(dirtyRect)
-
-
-        // Drawing code here.
-    }
-    
+	#if os(macOS)
     override open func layout() {
         super.layout()
-        countField?.font = NSFont.boldSystemFont(ofSize: resizeFontWithString(countField!.stringValue))
+        countField?.font = SRFont.boldSystemFont(ofSize: resizeFontWithString(countField!.stringValue))
     }
-    
+	#endif
+	
     fileprivate func resizeFontWithString(_ title: String) -> CGFloat {
 //        defer {
 //            Swift.print(textSize, self.bounds, displaySize)
@@ -142,13 +150,17 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         
         while displaySize < largestSize {
             let nsTitle = NSString(string: title)
-            let attributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: displaySize)]
+            let attributes = [NSFontAttributeName: SRFont.boldSystemFont(ofSize: displaySize)]
+			
+			#if os(macOS)
             textSize = nsTitle.size(withAttributes: attributes)
+			#elseif os(iOS)
+			textSize = nsTitle.size(attributes: attributes)
+			#endif
+			
             if textSize.width < self.bounds.width * 0.8 {
-//                Swift.print(displaySize, "increasing")
                 displaySize += 1
             } else {
-//                Swift.print(displaySize)
                 return displaySize
             }
         }

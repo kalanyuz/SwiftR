@@ -111,9 +111,7 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         hashLayer.anchorPoint = CGPoint.zero
         hashLayer.needsDisplayOnBoundsChange = true
         hashLayer.bounds = CGRect(x: 0, y: 0, width: frameRect.width, height: frameRect.height)
-        hashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-//        self.hashLayer.addSublayer(self.layer)
-        
+		
         layer.delegate = self
         layer.anchorPoint = CGPoint.zero
         //MUST: set anchorpoint first or else set frame will shift it else where due to the coordinate system
@@ -121,8 +119,12 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
 //        Swift.print(layer.bounds)
         layer.bounds = CGRect(x: 0, y: 0, width: hashLayer.bounds.width - innerTopRightPadding, height: hashLayer.bounds.height - innerTopRightPadding)
         //SWIFT 2.0 Syntax : Option Settypes
-        layer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
-        
+		#if os(macOS)
+			
+			hashLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+			layer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
+		#endif
+		
         self.dataLayer.anchorPoint = CGPoint.zero
         self.dataLayer.bounds = CGRect(x: 0, y: 0, width: layer.bounds.width, height: layer.bounds.height )
         //if parent layer has implicit and children don't have it, ghosting occurs!
@@ -137,10 +139,8 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         self.layer.insertSublayer(self.dataLayer, below: self.layer)
         self.layer.insertSublayer(self.hashLayer, at: 0)
 
-        
-
     }
-    
+	
     convenience init(frame: CGRect, axeOrigin: CGPoint, xPointsToShow: CGFloat, yPointsToShow: CGFloat, numberOfSubticks: Int = 0) {
         self.init(frame: frame)
         
@@ -168,7 +168,8 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         }
         
     }
-    
+	
+	
     open func layoutSublayers(of layer: CALayer) {
         //=== identical to : refers to the same memory
         //== equal in value
@@ -201,7 +202,7 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
     }
     
     //MARK: NSWindowDelegate
-
+	#if os(macOS)
     open func rescaleSublayers() {
         //set layer's contentScale for crisp display
         guard let sublayers = self.dataLayer.sublayers, self.dataLayer.sublayers?.count > 0 else {
@@ -213,14 +214,29 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         self.layer.contentsScale = NSApplication.shared().windows[0].backingScaleFactor
         self.hashLayer.contentsScale = NSApplication.shared().windows[0].backingScaleFactor
     }
-    
+	#elseif os(iOS)
+	
+	func rescaleSublayers() {
+		//set layer's contentScale for crisp display
+		guard let sublayers = self.dataLayer.sublayers, self.dataLayer.sublayers?.count > 0 else {
+			return
+		}
+		for sublayer in sublayers {
+			sublayer.contentsScale = UIScreen.main.scale
+		}
+		self.layer.contentsScale = UIScreen.main.scale
+		self.hashLayer.contentsScale = UIScreen.main.scale
+	}
+	
+	#endif
+	
     //MARK: Utilities
     open func manageDataSublayers() {
         guard let sublayers = self.dataLayer.sublayers, self.dataLayer.sublayers?.count > 0 else {
             return
         }
         
-        
+
         for sublayer in sublayers {
             sublayer.frame.size.width = 0
             sublayer.frame.size.height = 0
