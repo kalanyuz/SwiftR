@@ -70,6 +70,8 @@ open class AxesDrawer
         var ppY = (bounds.height - padding.y) / (yPointsToShow + (displayLabels ? 0.5: 0))
 		
         let posX = (bounds.origin.x + padding.x)
+		
+		//FIXME: posY is calculated from anchorPoint 0,0, cause bug with negative Y range
         let posY = (bounds.origin.y + padding.y) + ((bounds.height - padding.y) * anchorPoint.y)
         let position = CGPoint(x: posX, y: posY )
 
@@ -130,7 +132,6 @@ open class AxesDrawer
             path.move(to: CGPoint(x: align(gridSpacing), y: align(bounds.minY + padding.y)))
             path.line(to: CGPoint(x: align(gridSpacing), y: bounds.maxY))
         }
-		//FIXME: posY is calculated from origin 0,0
         for gridSpacing in stride(from: align(posY), to: bounds.maxY, by: align(ppY) / numberOfSubticks) {
             path.move(to: CGPoint(x: bounds.minX + padding.x, y: align(gridSpacing)))
             path.line(to: CGPoint(x: bounds.maxX, y: align(gridSpacing)))
