@@ -6,8 +6,6 @@
 //  Copyright © 2017 kalanyuz. All rights reserved.
 //
 
-import Cocoa
-
 //FIXME: add another extension
 open class NSTextLabel: NSTextField {
 	

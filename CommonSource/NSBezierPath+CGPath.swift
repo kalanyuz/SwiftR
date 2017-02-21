@@ -3,11 +3,9 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/16/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 // Credit : icodeforlove
 // URL : https://gist.github.com/jorgenisaksson/76a8dae54fd3dc4e31c2
-
-import Cocoa
 
 extension NSBezierPath {
 	var cgPath : CGPath {

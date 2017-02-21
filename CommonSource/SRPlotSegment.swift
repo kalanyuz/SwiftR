@@ -3,7 +3,7 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/14/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
 
 #if os(iOS)
@@ -67,9 +67,9 @@ open class SRPlotSegment : NSObject, CALayerDelegate {
                 lines[i*2+1].y =  (channelPos + (self.layer.bounds.height * apy)) + (CGFloat(nextData) * ppy)
             }
             //get prism color for each specific channel
-            ctx.setLineWidth(1.5);
-            ctx.setStrokeColor(SRColor.prismColor[c].cgColor);
-						ctx.strokeLineSegments(between: lines)
+            ctx.setLineWidth(1.5)
+            ctx.setStrokeColor(SRColor.prismColor[c].cgColor)
+			ctx.strokeLineSegments(between: lines)
         }
         
     }

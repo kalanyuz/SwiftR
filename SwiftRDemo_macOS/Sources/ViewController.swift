@@ -15,7 +15,6 @@ import SwiftR
         didSet {
             graphView1.title = "Filtered"
             graphView1.totalSecondsToDisplay = 10.0
-            graphView1.maxDataRange = 15000
         }
     }
 	
@@ -23,34 +22,19 @@ import SwiftR
         didSet {
             graphView2.title = "Split"
             graphView2.totalSecondsToDisplay = 10.0
-            graphView2.yTicks[0] = "C1"
-            graphView2.yTicks[1] = "C2"
-            graphView2.yTicks[2] = "y"
-            graphView2.yTicks[3] = "z"
-            graphView2.axeLayer?.maxDataRange = 1
-            
-            //            graphView2.maxDataRange = 15000
         }
     }
 	
 	@IBOutlet weak var graphView4: SRPlotView! {
 		didSet {
 			graphView4.title = "Split"
-			graphView4.totalSecondsToDisplay = 10.0
-			graphView4.yTicks[0] = "C1"
-			graphView4.yTicks[1] = "C2"
-			graphView4.yTicks[2] = "y"
-			graphView4.yTicks[3] = "z"
-			graphView4.axeLayer?.maxDataRange = 1
 			
-			//            graphView2.maxDataRange = 15000
 		}
 	}
     @IBOutlet weak var graphView3: SRMergePlotView! {
         didSet {
             graphView3.title = "Raw"
             graphView3.totalSecondsToDisplay = 10.0
-            graphView3.maxDataRange = 15000
         }
     }
 	
@@ -106,14 +90,11 @@ import SwiftR
 		anotherDataTimer = Timer(timeInterval:1/60, target: self, selector: #selector(ViewController.addData), userInfo: nil, repeats: true)
         RunLoop.current.add(anotherDataTimer!, forMode: RunLoopMode.commonModes)
 
-		fakeLoadTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: {x in self.systemStartup()})
-        graphView1.maxDataRange = 1
-        graphView1.totalChannelsToDisplay = 6
-		
+		fakeLoadTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: {x in self.systemStartup()})
+
+		graphView1.totalChannelsToDisplay = 6
         graphView2.totalChannelsToDisplay = 6
 		graphView4.totalChannelsToDisplay = 6
-		
-        graphView3.maxDataRange = 1
         graphView3.totalChannelsToDisplay = 6
 
     }

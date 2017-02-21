@@ -3,15 +3,8 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/20/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
-
-#if os(iOS)
-	import Foundation
-	import UIKit
-#elseif os(macOS)
-	import Cocoa
-#endif
 
 open class SRMergePlotView: SRPlotView {
 
@@ -32,7 +25,6 @@ open class SRMergePlotView: SRPlotView {
 			
             self.axeLayer?.padding.x = newValue < 10 ? textSize.width * 3: textSize.width
             self.axeLayer?.layer.setNeedsDisplay()
-
         }
     }
     
@@ -59,9 +51,11 @@ open class SRMergePlotView: SRPlotView {
         self.axeLayer?.hashSystem.color = SRColor.darkGray
         self.titleField?.textColor = SRColor.darkGray
         self.axeLayer?.signalType = .merge
-        
+		
+		self.maxDataRange = 1
+		
     }
-    
+	
     required public init(frame frameRect: SRRect) {
         super.init(frame: frameRect)
         

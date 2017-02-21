@@ -37,6 +37,7 @@
 		604DF1881E5AA55800C0D528 /* SRColor+Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE791E53F48C002AFBAB /* SRColor+Prism.swift */; };
 		606FEF281E53EDB1000BEB7C /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606FEF1E1E53EDB1000BEB7C /* SwiftR.framework */; };
 		606FEF461E53EDFB000BEB7C /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606FEF3D1E53EDFB000BEB7C /* SwiftR.framework */; };
+		6081F9A01E5C094900BB5DFD /* SRView+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE7B1E53F48C002AFBAB /* SRView+Center.swift */; };
 		60D3C0581E53F2FC00722D3E /* SwiftR.h in Headers */ = {isa = PBXBuildFile; fileRef = 606FEF561E53EEEA000BEB7C /* SwiftR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60D3C0591E53F2FD00722D3E /* SwiftR.h in Headers */ = {isa = PBXBuildFile; fileRef = 606FEF561E53EEEA000BEB7C /* SwiftR.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		60D3C05A1E53F31000722D3E /* SwiftSigV_macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 606FEF591E53EEEA000BEB7C /* SwiftSigV_macOSTests.swift */; };
@@ -425,6 +426,7 @@
 				6026DE9A1E53F48C002AFBAB /* SRPlotAxe.swift in Sources */,
 				6026DECE1E541566002AFBAB /* UIBezierPath+Cross.swift in Sources */,
 				6026DE881E53F48C002AFBAB /* Constants.swift in Sources */,
+				6081F9A01E5C094900BB5DFD /* SRView+Center.swift in Sources */,
 				6026DE981E53F48C002AFBAB /* SRMergePlotView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,7 +3,7 @@
 //  Swift Real-time Plot
 //
 //  Created by Kalanyu Zintus-art on 9/22/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
 
 #if os(iOS)
@@ -24,6 +24,7 @@
     open var totalChannelsToDisplay: CGFloat = 6 {
         didSet {
             self.axeLayer?.yPointsToShow = self.totalChannelsToDisplay
+			self.yTicks = [Int](1...Int(self.totalChannelsToDisplay+1)).map({String(describing: $0)})
         }
     }
 
@@ -55,7 +56,6 @@
                     maxFrameWidth = textSize.width
                     self.axeLayer?.padding.x = maxFrameWidth + 20
                     self.axeLayer?.padding.y = textSize.height + 10
-//                    self.axeLayer?.hashLayer.setNeedsDisplay()
                 }
             }
         }
@@ -94,7 +94,10 @@
         self.titleField?.translatesAutoresizingMaskIntoConstraints = false
         let textFieldConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         self.addConstraint(textFieldConstraint)
-        
+		
+		let bottomMarginConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+		self.addConstraint(bottomMarginConstraint)
+		
         //TODO: Support for axeOrigin
         self.axeLayer = SRPlotAxe(frame: self.frame, axeOrigin: CGPoint.zero, xPointsToShow: totalSecondsToDisplay, yPointsToShow: totalChannelsToDisplay, numberOfSubticks: 1)
 		
@@ -112,7 +115,8 @@
         self.axeLayer?.signalType = .split
         self.axeLayer?.hashSystem.color = SRColor.darkGray
         self.titleField?.textColor = SRColor.darkGray
-    
+		
+		
     }
     
     required override public init(frame frameRect: SRRect) {
@@ -124,7 +128,6 @@
     
     convenience init(frame frameRect: SRRect, title: String, seconds: Double, channels: Int, samplingRatae: CGFloat, padding: CGPoint = CGPoint.zero) {
         self.init(frame: frameRect)
-        self.title = "Filtered EMG Signals"
         self.totalSecondsToDisplay = CGFloat(seconds)
         self.totalChannelsToDisplay = CGFloat(channels)
         
@@ -144,8 +147,12 @@
         self.titleField?.translatesAutoresizingMaskIntoConstraints = false
         let textFieldConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         self.addConstraint(textFieldConstraint)
+		
+		//borrowed from iOS?
+		let bottomMarginConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+		self.addConstraint(bottomMarginConstraint)
     }
-    
+	
     //MARK: Core functions
     open func addData(_ data: [Double])
     {
@@ -276,24 +283,25 @@
 	#endif
 	
     fileprivate func resizeFrameWithString(_ title: String) {
-        let nsTitle = title as NSString
 		
+		var axeBounds = self.bounds
+		let nsTitle = title as NSString
+
 		#if os(macOS)
-			
-			let textSize = nsTitle.size(withAttributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 15)])
+			let textSize = nsTitle.size(withAttributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 25)])
 			self.titleField?.stringValue = title
+			self.titleField?.frame = CGRect(x: self.bounds.width/2 - textSize.width/2, y: 0, width: textSize.width, height: textSize.height)
+			
+			axeBounds.origin.y = self.titleField!.frame.height
 		#elseif os(iOS)
 			
-			let textSize = nsTitle.size(attributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 15)])
 			self.titleField?.text = title
+			
+			axeBounds.origin.y = 0
 		#endif
 		
-        self.titleField?.frame = CGRect(x: self.bounds.width/2 - textSize.width/2, y: 0, width: textSize.width, height: textSize.height)
         self.titleField?.sizeToFit()
-        
-        var axeBounds = self.bounds
-        axeBounds.origin.y = self.titleField!.frame.height
-        
+		
         axeLayer?.layer.frame.origin = axeBounds.origin
         axeLayer?.layer.frame.size.height = self.frame.height - self.titleField!.frame.height
         axeLayer?.layer.frame.size.width = self.frame.width

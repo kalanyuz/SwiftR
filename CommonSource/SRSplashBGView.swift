@@ -3,7 +3,7 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/27/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
 
 
@@ -29,7 +29,7 @@ public protocol SRSplashViewDelegate {
 
 open class SRSplashBGView: SRView {
     
-    var delegate: SRSplashViewDelegate?
+    public var delegate: SRSplashViewDelegate?
     let splashLayer = CALayer()
     fileprivate var splashColor : SRColor = SRColor.white
     fileprivate let initialSplashSize : CGFloat = 50

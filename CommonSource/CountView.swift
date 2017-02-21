@@ -3,7 +3,7 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/5/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
 
 #if os(iOS)

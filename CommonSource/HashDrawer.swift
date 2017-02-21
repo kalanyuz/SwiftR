@@ -70,8 +70,13 @@ open class HashDrawer
     //    you'd set pointsPerUnit to 50
     open func drawHashInRect(_ context: CGContext, bounds: CGRect, axeOrigin: CGPoint, xPointsToShow: CGFloat, yPointsToShow: CGFloat = 1, numberOfTicks: Int = 0, maxDataRange: Int = 1)
     {
+		#if os(iOS)
+		context.translateBy(x: 0.0, y: bounds.height)
+		context.scaleBy(x: 1.0, y: -1.0)
+		#endif
+		
         //DRAWING IN LAYER CANNOT BE DONE USING NSPath Stroke
-//        color.set()
+		//color.set()
         self.numberOfSubticks = CGFloat(numberOfTicks)
         self.maxDataRange = max(maxDataRange, 1)
         
@@ -79,9 +84,8 @@ open class HashDrawer
         var ppY = (bounds.height - padding.y) / (yPointsToShow + (displayLabels ? 0.5: 0))
         
         //TODO: the inner frame of the graph
-        
-        
-        let posX = (bounds.origin.x + padding.x)// + ((bounds.width - padding.x) * anchorPoint.x)
+		
+        let posX = (bounds.origin.x + padding.x)
         let posY = (bounds.origin.y + padding.y) + ((bounds.height - padding.y) * anchorPoint.y)
         let position = CGPoint(x: posX, y: posY )
         
@@ -146,10 +150,8 @@ open class HashDrawer
             }
             
             // now create a bounding box inside whose edges those four hashmarks lie
-            //            let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
             let subBboxSize = pointsPerHashmark / numberOfSubticks * startingHashmarkRadius * 2
             // check here if there's hash boundary-related bug
-            //            var bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize)) //skips to "1"'s hash if use bboxsize
             var subBbox =  CGRect(center: origin, size: CGSize(width: subBboxSize, height: subBboxSize)) //covers "0"
             
             // formatter for the hashmark labels
@@ -163,9 +165,6 @@ open class HashDrawer
             var paddedBounds = bounds
             paddedBounds.origin.y += padding.y
             
-            //            while !CGRectContainsRect(bbox, self.bounds) {
-            
-            
             while numberOfSubticks > 0 && !subBbox.contains(self.bounds)
             {
                 var label = formatter.string(from: ((origin.x-subBbox.minX)/pointsPerUnit * CGFloat(self.maxDataRange)) as NSNumber)!
@@ -178,21 +177,19 @@ open class HashDrawer
                 }
                 
                 if let bottomHashmarkPoint = alignedPoint(x: origin.x, y: subBbox.maxY, insideBounds:paddedBounds) {
-                    if !yLockLabels[i].isEmpty {
+					
+                    if i < yLockLabels.count && !yLockLabels[i].isEmpty {
                         label = yLockLabels[i]
                     }
                     if self.bounds.contains(getTextRect(bottomHashmarkPoint, text: label)) {
                         drawHashmarkAtLocation(context, location: bottomHashmarkPoint, .left(label))
                     }
                 }
-								subBbox = subBbox.insetBy(dx: -(pointsPerHashmark / numberOfSubticks), dy: -(pointsPerHashmark / numberOfSubticks))
-//                subBbox.insetInPlace(dx: , dy: )
-							
+				subBbox = subBbox.insetBy(dx: -(pointsPerHashmark / numberOfSubticks), dy: -(pointsPerHashmark / numberOfSubticks))
+				
                 i += 1
             }
-            
-
-            
+			
         }
     }
     
@@ -259,7 +256,6 @@ open class HashDrawer
                     drawHashmarkAtLocation(context, location: rightHashmarkPoint, .top(label))
                 }
                 bbox = bbox.insetBy(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
-//                bbox.insetInPlace(dx: -pointsPerHashmark, dy: -pointsPerHashmark)
             }
         }
     }
@@ -321,7 +317,7 @@ open class HashDrawer
             let gString = NSMutableAttributedString(string:text, attributes:attributes)
             let line = CTLineCreateWithAttributedString(gString)
 					
-						context.textPosition = textRect.origin;
+			context.textPosition = textRect.origin;
             CTLineDraw(line, context);
         }
         

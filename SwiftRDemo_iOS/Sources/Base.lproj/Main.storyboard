@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad9_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SwiftRDemo_iOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nGs-pG-S3t" customClass="SRPlotView" customModule="SwiftR">
+                                <rect key="frame" x="38.5" y="690.5" width="691" height="292.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmc-wZ-Thu" customClass="SRPlotView" customModule="SwiftR">
+                                <rect key="frame" x="40" y="28" width="691" height="324.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-wb-xVm" customClass="SRMergePlotView" customModule="SwiftR">
+                                <rect key="frame" x="40" y="381" width="688" height="292.5"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="nGs-pG-S3t" firstAttribute="top" secondItem="hb2-wb-xVm" secondAttribute="bottom" constant="17" id="6BF-aY-sMr"/>
+                            <constraint firstItem="fmc-wZ-Thu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="A6A-r2-He8"/>
+                            <constraint firstItem="nGs-pG-S3t" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1:3.5" id="Dxg-Sb-aX2"/>
+                            <constraint firstItem="nGs-pG-S3t" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="EWd-r7-rfO"/>
+                            <constraint firstItem="hb2-wb-xVm" firstAttribute="top" secondItem="fmc-wZ-Thu" secondAttribute="bottom" constant="28.5" id="NXh-Y9-oIy"/>
+                            <constraint firstItem="hb2-wb-xVm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Qke-gP-sim"/>
+                            <constraint firstItem="nGs-pG-S3t" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.9:1" id="TMx-Kk-7hB"/>
+                            <constraint firstItem="fmc-wZ-Thu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="c4m-H8-AHU"/>
+                            <constraint firstItem="hb2-wb-xVm" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="fHT-jy-V0E"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hb2-wb-xVm" secondAttribute="trailing" constant="20" id="hTb-d7-aCB"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="nGs-pG-S3t" secondAttribute="bottom" constant="41" id="qlr-gL-5Gc"/>
+                            <constraint firstItem="fmc-wZ-Thu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="qnw-61-F1Z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fmc-wZ-Thu" secondAttribute="trailing" constant="20" id="ro3-VJ-Rd4"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="nGs-pG-S3t"/>
+                                <exclude reference="fmc-wZ-Thu"/>
+                                <exclude reference="hb2-wb-xVm"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="qlr-gL-5Gc"/>
+                                <exclude reference="A6A-r2-He8"/>
+                                <exclude reference="c4m-H8-AHU"/>
+                                <exclude reference="qnw-61-F1Z"/>
+                                <exclude reference="ro3-VJ-Rd4"/>
+                                <exclude reference="NXh-Y9-oIy"/>
+                                <exclude reference="Qke-gP-sim"/>
+                                <exclude reference="fHT-jy-V0E"/>
+                                <exclude reference="hTb-d7-aCB"/>
+                                <exclude reference="6BF-aY-sMr"/>
+                                <exclude reference="Dxg-Sb-aX2"/>
+                                <exclude reference="EWd-r7-rfO"/>
+                                <exclude reference="TMx-Kk-7hB"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="nGs-pG-S3t"/>
+                                <include reference="fmc-wZ-Thu"/>
+                                <include reference="hb2-wb-xVm"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="qlr-gL-5Gc"/>
+                                <include reference="A6A-r2-He8"/>
+                                <include reference="c4m-H8-AHU"/>
+                                <include reference="qnw-61-F1Z"/>
+                                <include reference="ro3-VJ-Rd4"/>
+                                <include reference="NXh-Y9-oIy"/>
+                                <include reference="Qke-gP-sim"/>
+                                <include reference="fHT-jy-V0E"/>
+                                <include reference="hTb-d7-aCB"/>
+                                <include reference="6BF-aY-sMr"/>
+                                <include reference="Dxg-Sb-aX2"/>
+                                <include reference="EWd-r7-rfO"/>
+                                <include reference="TMx-Kk-7hB"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="graphView" destination="nGs-pG-S3t" id="zp3-MJ-aLw"/>
+                        <outlet property="secondGraphView" destination="hb2-wb-xVm" id="sJY-dF-eD1"/>
+                        <outlet property="thirdGraphView" destination="fmc-wZ-Thu" id="EQ1-3g-GiX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="567.96875" y="534.375"/>
+        </scene>
+    </scenes>
+</document>

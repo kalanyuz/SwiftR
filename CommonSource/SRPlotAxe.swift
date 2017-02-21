@@ -3,7 +3,7 @@
 //  NativeSigP
 //
 //  Created by Kalanyu Zintus-art on 10/15/15.
-//  Copyright © 2015 KoikeLab. All rights reserved.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
 //
 
 #if os(iOS)
@@ -132,8 +132,8 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         self.dataLayer.delegate = self
 
         let masking = CALayer()
-//        masking.anchorPoint = CGPoin
-        masking.backgroundColor = SRColor.black.cgColor
+
+		masking.backgroundColor = SRColor.black.cgColor
         self.dataLayer.mask = masking
         
         self.layer.insertSublayer(self.dataLayer, below: self.layer)

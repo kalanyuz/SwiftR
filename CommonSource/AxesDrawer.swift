@@ -6,13 +6,6 @@
 //  Copyright (c) 2015 Stanford University. All rights reserved.
 //
 
-#if os(iOS)
-	import Foundation
-	import UIKit
-#elseif os(macOS)
-	import Cocoa
-#endif
-
 open class AxesDrawer
 {
     open var maxDataRange : Int = 1
@@ -63,6 +56,11 @@ open class AxesDrawer
     //    you'd set pointsPerUnit to 50
     open func drawAxesInRect(_ context: CGContext, bounds: CGRect, axeOrigin: CGPoint, xPointsToShow: CGFloat, yPointsToShow: CGFloat = 1, numberOfTicks: Int = 0, maxDataRange: Int = 1)
     {
+		#if os(iOS)
+		context.translateBy(x: 0.0, y: bounds.height)
+		context.scaleBy(x: 1.0, y: -1.0)
+		#endif
+		
         //DRAWING IN LAYER CANNOT BE DONE USING NSPath Stroke
 //        color.set()
         self.numberOfSubticks = CGFloat(numberOfTicks)
@@ -70,11 +68,8 @@ open class AxesDrawer
 
         let ppX = (bounds.width - padding.x) / (xPointsToShow + (displayLabels ? 0.5: 0))
         var ppY = (bounds.height - padding.y) / (yPointsToShow + (displayLabels ? 0.5: 0))
-        
-        //TODO: the inner frame of the graph
-        
-        
-        let posX = (bounds.origin.x + padding.x)// + ((bounds.width - padding.x) * anchorPoint.x)
+		
+        let posX = (bounds.origin.x + padding.x)
         let posY = (bounds.origin.y + padding.y) + ((bounds.height - padding.y) * anchorPoint.y)
         let position = CGPoint(x: posX, y: posY )
 
@@ -109,12 +104,11 @@ open class AxesDrawer
         //draw y-axis
         path.move(to: CGPoint(x: align(position.x + lineHalfWidth), y: align(bounds.minY + padding.y) ))
         path.line(to: CGPoint(x: align(position.x + lineHalfWidth), y: bounds.maxY))
-        
+		
         //closing the borders on all four sides (incase where the origin is not (0,0)
         path.move(to: CGPoint(x: bounds.minX + padding.x, y: bounds.minY + padding.y + lineHalfWidth))
         path.line(to: CGPoint(x: bounds.minX + padding.x, y: bounds.maxY - lineHalfWidth))
-			
-        
+		
         path.move(to: CGPoint(x: bounds.minX + padding.x, y: bounds.maxY - lineHalfWidth))
         path.line(to: CGPoint(x: bounds.maxX, y: bounds.maxY - lineHalfWidth))
         
@@ -136,18 +130,17 @@ open class AxesDrawer
             path.move(to: CGPoint(x: align(gridSpacing), y: align(bounds.minY + padding.y)))
             path.line(to: CGPoint(x: align(gridSpacing), y: bounds.maxY))
         }
-        
+		//FIXME: posY is calculated from origin 0,0
         for gridSpacing in stride(from: align(posY), to: bounds.maxY, by: align(ppY) / numberOfSubticks) {
             path.move(to: CGPoint(x: bounds.minX + padding.x, y: align(gridSpacing)))
             path.line(to: CGPoint(x: bounds.maxX, y: align(gridSpacing)))
         }
-        
-
+		
         for gridSpacing in stride(from: align(posY), to: bounds.minY, by: align(ppY)) {
             path.move(to: CGPoint(x: bounds.minX + padding.x, y: align(gridSpacing)))
             path.line(to: CGPoint(x: bounds.maxX, y: align(gridSpacing)))
         }
-    
+		
         context.addPath(path.cgPath)
         context.setStrokeColor(color.cgColor)
         context.setLineWidth(0.25)
