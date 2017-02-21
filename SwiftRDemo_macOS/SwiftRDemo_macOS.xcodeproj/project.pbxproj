@@ -7,41 +7,49 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0BD203F71E5C7E8600C3FE3E /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD203F01E5C7E7B00C3FE3E /* SwiftR.framework */; };
+		0BD203F81E5C7E8600C3FE3E /* SwiftR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD203F01E5C7E7B00C3FE3E /* SwiftR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		602F13CC1BD7CCCD009A6F07 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F13CB1BD7CCCD009A6F07 /* AppDelegate.swift */; };
 		602F13CE1BD7CCCD009A6F07 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 602F13CD1BD7CCCD009A6F07 /* ViewController.swift */; };
 		602F13D31BD7CCCD009A6F07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 602F13D11BD7CCCD009A6F07 /* Main.storyboard */; };
-		604DF1871E5A88DE00C0D528 /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 604DF1801E5A88D400C0D528 /* SwiftR.framework */; };
 		60A425221BE5B9120071077A /* RoundProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60A425211BE5B9120071077A /* RoundProgressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		604DF17F1E5A88D400C0D528 /* PBXContainerItemProxy */ = {
+		0BD203EF1E5C7E7B00C3FE3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */;
+			containerPortal = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 606FEF1E1E53EDB1000BEB7C;
 			remoteInfo = SwiftR_macOS;
 		};
-		604DF1811E5A88D400C0D528 /* PBXContainerItemProxy */ = {
+		0BD203F11E5C7E7B00C3FE3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */;
+			containerPortal = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 606FEF271E53EDB1000BEB7C;
 			remoteInfo = SwiftR_macOSTests;
 		};
-		604DF1831E5A88D400C0D528 /* PBXContainerItemProxy */ = {
+		0BD203F31E5C7E7B00C3FE3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */;
+			containerPortal = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 606FEF3D1E53EDFB000BEB7C;
 			remoteInfo = SwiftR_iOS;
 		};
-		604DF1851E5A88D400C0D528 /* PBXContainerItemProxy */ = {
+		0BD203F51E5C7E7B00C3FE3E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */;
+			containerPortal = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 606FEF451E53EDFB000BEB7C;
 			remoteInfo = SwiftR_iOSTests;
+		};
+		0BD203F91E5C7E8600C3FE3E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 606FEF1D1E53EDB1000BEB7C;
+			remoteInfo = SwiftR_macOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -52,6 +60,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0BD203F81E5C7E8600C3FE3E /* SwiftR.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -59,12 +68,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftR.xcodeproj; path = ../SwiftR.xcodeproj; sourceTree = "<group>"; };
 		602F13C81BD7CCCD009A6F07 /* SwiftRDemo_macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRDemo_macOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		602F13CB1BD7CCCD009A6F07 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		602F13CD1BD7CCCD009A6F07 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		602F13D21BD7CCCD009A6F07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		602F13D41BD7CCCD009A6F07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftR.xcodeproj; path = ../../../SwiftProjects/SwiftR/SwiftR.xcodeproj; sourceTree = "<group>"; };
 		60A425211BE5B9120071077A /* RoundProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,17 +82,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				604DF1871E5A88DE00C0D528 /* SwiftR.framework in Frameworks */,
+				0BD203F71E5C7E8600C3FE3E /* SwiftR.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0BD203E91E5C7E7B00C3FE3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0BD203F01E5C7E7B00C3FE3E /* SwiftR.framework */,
+				0BD203F21E5C7E7B00C3FE3E /* SwiftR_macOSTests.xctest */,
+				0BD203F41E5C7E7B00C3FE3E /* SwiftR.framework */,
+				0BD203F61E5C7E7B00C3FE3E /* SwiftR_iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		602F13BF1BD7CCCC009A6F07 = {
 			isa = PBXGroup;
 			children = (
-				604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */,
+				0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */,
 				602F13CA1BD7CCCD009A6F07 /* Sources */,
 				602F13C91BD7CCCD009A6F07 /* Products */,
 			);
@@ -117,17 +137,6 @@
 			name = "Support Files";
 			sourceTree = "<group>";
 		};
-		604DF1791E5A88D400C0D528 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				604DF1801E5A88D400C0D528 /* SwiftR.framework */,
-				604DF1821E5A88D400C0D528 /* SwiftR_macOSTests.xctest */,
-				604DF1841E5A88D400C0D528 /* SwiftR.framework */,
-				604DF1861E5A88D400C0D528 /* SwiftR_iOSTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +152,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0BD203FA1E5C7E8600C3FE3E /* PBXTargetDependency */,
 			);
 			name = SwiftRDemo_macOS;
 			productName = SMKTunes;
@@ -180,8 +190,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 604DF1791E5A88D400C0D528 /* Products */;
-					ProjectRef = 604DF1781E5A88D400C0D528 /* SwiftR.xcodeproj */;
+					ProductGroup = 0BD203E91E5C7E7B00C3FE3E /* Products */;
+					ProjectRef = 0BD203E81E5C7E7B00C3FE3E /* SwiftR.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -192,32 +202,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		604DF1801E5A88D400C0D528 /* SwiftR.framework */ = {
+		0BD203F01E5C7E7B00C3FE3E /* SwiftR.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SwiftR.framework;
-			remoteRef = 604DF17F1E5A88D400C0D528 /* PBXContainerItemProxy */;
+			remoteRef = 0BD203EF1E5C7E7B00C3FE3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		604DF1821E5A88D400C0D528 /* SwiftR_macOSTests.xctest */ = {
+		0BD203F21E5C7E7B00C3FE3E /* SwiftR_macOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = SwiftR_macOSTests.xctest;
-			remoteRef = 604DF1811E5A88D400C0D528 /* PBXContainerItemProxy */;
+			remoteRef = 0BD203F11E5C7E7B00C3FE3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		604DF1841E5A88D400C0D528 /* SwiftR.framework */ = {
+		0BD203F41E5C7E7B00C3FE3E /* SwiftR.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = SwiftR.framework;
-			remoteRef = 604DF1831E5A88D400C0D528 /* PBXContainerItemProxy */;
+			remoteRef = 0BD203F31E5C7E7B00C3FE3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		604DF1861E5A88D400C0D528 /* SwiftR_iOSTests.xctest */ = {
+		0BD203F61E5C7E7B00C3FE3E /* SwiftR_iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = SwiftR_iOSTests.xctest;
-			remoteRef = 604DF1851E5A88D400C0D528 /* PBXContainerItemProxy */;
+			remoteRef = 0BD203F51E5C7E7B00C3FE3E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -245,6 +255,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0BD203FA1E5C7E8600C3FE3E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftR_macOS;
+			targetProxy = 0BD203F91E5C7E8600C3FE3E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		602F13D11BD7CCCD009A6F07 /* Main.storyboard */ = {

@@ -29,11 +29,11 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fmc-wZ-Thu" customClass="SRPlotView" customModule="SwiftR">
-                                <rect key="frame" x="40" y="28" width="691" height="324.5"/>
+                                <rect key="frame" x="40" y="28" width="688" height="294"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hb2-wb-xVm" customClass="SRMergePlotView" customModule="SwiftR">
-                                <rect key="frame" x="40" y="381" width="688" height="292.5"/>
+                                <rect key="frame" x="40" y="350.5" width="688" height="323"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>

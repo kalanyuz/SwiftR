@@ -106,6 +106,7 @@
 			self.layer!.addSublayer(self.axeLayer!.layer)
 		#elseif os(iOS)
 			self.layer.addSublayer(self.axeLayer!.layer)
+            self.backgroundColor = SRColor.clear
 		#endif
 		
         self.graphAxes.anchorPoint = CGPoint.zero
@@ -196,8 +197,12 @@
     var kSegmentInitialPosition : CGPoint {
         get {
             //something about anchor point being 0.5
+            #if os(macOS)
             return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.frame.height / 2) + graphAxes.position.y -
             (self.titleField!.frame.height / 2) )
+            #elseif os(iOS)
+            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.axeLayer!.layer.frame.height + self.axeLayer!.graph.pointsPerUnit.y)/2)
+            #endif
         }
     }
     

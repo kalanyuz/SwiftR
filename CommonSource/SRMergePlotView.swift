@@ -76,8 +76,12 @@ open class SRMergePlotView: SRPlotView {
         get {
             //something about anchor point being 0.5
             //line width hack
+            #if os(macOS)
             return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x - 1, y: graphAxes.position.y + 1)
+            #elseif os(iOS)
+            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: graphAxes.position.y - graphAxes.padding.y)
+            #endif
         }
     }
-    
+
 }

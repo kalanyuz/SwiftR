@@ -23,26 +23,16 @@ class ViewController: UIViewController, SRSplashViewDelegate {
             graphView.totalSecondsToDisplay = 10.0
             graphView.totalChannelsToDisplay = 6
             //axe padding
-            graphView.samplingRate = 60
-            
-   
+               
         }
     }
     
-    @IBOutlet weak var secondGraphView: SRPlotView! {
+    @IBOutlet weak var secondGraphView: SRMergePlotView! {
         didSet {
             secondGraphView.title = "Test 2"
             secondGraphView.totalSecondsToDisplay = 10.0
             secondGraphView.totalChannelsToDisplay = 6
             //axe padding
-            secondGraphView.samplingRate = 60
-            
-            secondGraphView.yTicks[0] = "Flexor 1"
-            secondGraphView.yTicks[1] = "Flexor 2"
-            secondGraphView.yTicks[2] = "Flexor 3"
-            secondGraphView.yTicks[3] = "Extensor 1"
-            secondGraphView.yTicks[4] = "Extensor 2"
-            secondGraphView.yTicks[5] = "Extensor 3"
         }
     }
     
@@ -52,14 +42,8 @@ class ViewController: UIViewController, SRSplashViewDelegate {
             thirdGraphView.totalSecondsToDisplay = 10.0
             thirdGraphView.totalChannelsToDisplay = 6
             //axe padding
-            thirdGraphView.samplingRate = 60
             
-            thirdGraphView.yTicks[0] = "Flexor 1"
-            thirdGraphView.yTicks[1] = "Flexor 2"
-            thirdGraphView.yTicks[2] = "Flexor 3"
-            thirdGraphView.yTicks[3] = "Extensor 1"
-            thirdGraphView.yTicks[4] = "Extensor 2"
-            thirdGraphView.yTicks[5] = "Extensor 3"
+
         }
     }
     
@@ -80,7 +64,7 @@ class ViewController: UIViewController, SRSplashViewDelegate {
         anotherDataTimer = Timer(timeInterval:1/60, target: self, selector: #selector(ViewController.addData2), userInfo: nil, repeats: true)
         RunLoop.current.add(anotherDataTimer!, forMode: RunLoopMode.commonModes)
         // Do any additional setup after loading the view, typically from a nib.
-        self.view.layer.backgroundColor = UIColor.red.cgColor
+        self.view.layer.backgroundColor = PrismColor()[1].cgColor
         
     }
 
