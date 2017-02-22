@@ -17,7 +17,6 @@
 		6026DE8A1E53F48C002AFBAB /* CountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE761E53F48C002AFBAB /* CountView.swift */; };
 		6026DE8B1E53F48C002AFBAB /* HashDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE771E53F48C002AFBAB /* HashDrawer.swift */; };
 		6026DE8C1E53F48C002AFBAB /* HashDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE771E53F48C002AFBAB /* HashDrawer.swift */; };
-		6026DE8D1E53F48C002AFBAB /* NSBezierPath+CGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE781E53F48C002AFBAB /* NSBezierPath+CGPath.swift */; };
 		6026DE8F1E53F48C002AFBAB /* SRColor+Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE791E53F48C002AFBAB /* SRColor+Prism.swift */; };
 		6026DE911E53F48C002AFBAB /* SRSplashBGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE7A1E53F48C002AFBAB /* SRSplashBGView.swift */; };
 		6026DE921E53F48C002AFBAB /* SRSplashBGView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE7A1E53F48C002AFBAB /* SRSplashBGView.swift */; };
@@ -32,9 +31,10 @@
 		6026DE9C1E53F48C002AFBAB /* SRPlotSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE7F1E53F48C002AFBAB /* SRPlotSegment.swift */; };
 		6026DE9D1E53F48C002AFBAB /* SRPlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE801E53F48C002AFBAB /* SRPlotView.swift */; };
 		6026DE9E1E53F48C002AFBAB /* SRPlotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE801E53F48C002AFBAB /* SRPlotView.swift */; };
-		6026DECE1E541566002AFBAB /* UIBezierPath+Cross.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DECD1E541566002AFBAB /* UIBezierPath+Cross.swift */; };
-		6026DED01E541A69002AFBAB /* NSTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DECF1E541A69002AFBAB /* NSTextLabel.swift */; };
 		604DF1881E5AA55800C0D528 /* SRColor+Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE791E53F48C002AFBAB /* SRColor+Prism.swift */; };
+		6059C7AD1E5D559C0044CC09 /* NSBezierPath+CGPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059C7AA1E5D559C0044CC09 /* NSBezierPath+CGPath.swift */; };
+		6059C7AE1E5D559C0044CC09 /* NSTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6059C7AB1E5D559C0044CC09 /* NSTextLabel.swift */; };
+		6059C7AF1E5D55A50044CC09 /* iOS in Sources */ = {isa = PBXBuildFile; fileRef = 6059C7A81E5D559C0044CC09 /* iOS */; };
 		606FEF281E53EDB1000BEB7C /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606FEF1E1E53EDB1000BEB7C /* SwiftR.framework */; };
 		606FEF461E53EDFB000BEB7C /* SwiftR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 606FEF3D1E53EDFB000BEB7C /* SwiftR.framework */; };
 		6081F9A01E5C094900BB5DFD /* SRView+Center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6026DE7B1E53F48C002AFBAB /* SRView+Center.swift */; };
@@ -67,7 +67,6 @@
 		6026DE751E53F48C002AFBAB /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		6026DE761E53F48C002AFBAB /* CountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountView.swift; sourceTree = "<group>"; };
 		6026DE771E53F48C002AFBAB /* HashDrawer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HashDrawer.swift; sourceTree = "<group>"; };
-		6026DE781E53F48C002AFBAB /* NSBezierPath+CGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+CGPath.swift"; sourceTree = "<group>"; };
 		6026DE791E53F48C002AFBAB /* SRColor+Prism.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SRColor+Prism.swift"; sourceTree = "<group>"; };
 		6026DE7A1E53F48C002AFBAB /* SRSplashBGView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRSplashBGView.swift; sourceTree = "<group>"; };
 		6026DE7B1E53F48C002AFBAB /* SRView+Center.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SRView+Center.swift"; sourceTree = "<group>"; };
@@ -76,8 +75,9 @@
 		6026DE7E1E53F48C002AFBAB /* SRPlotAxe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRPlotAxe.swift; sourceTree = "<group>"; };
 		6026DE7F1E53F48C002AFBAB /* SRPlotSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRPlotSegment.swift; sourceTree = "<group>"; };
 		6026DE801E53F48C002AFBAB /* SRPlotView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SRPlotView.swift; sourceTree = "<group>"; };
-		6026DECD1E541566002AFBAB /* UIBezierPath+Cross.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIBezierPath+Cross.swift"; sourceTree = "<group>"; };
-		6026DECF1E541A69002AFBAB /* NSTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextLabel.swift; sourceTree = "<group>"; };
+		6059C7A81E5D559C0044CC09 /* iOS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = iOS; path = CommonSource/iOS; sourceTree = "<group>"; };
+		6059C7AA1E5D559C0044CC09 /* NSBezierPath+CGPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBezierPath+CGPath.swift"; sourceTree = "<group>"; };
+		6059C7AB1E5D559C0044CC09 /* NSTextLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTextLabel.swift; sourceTree = "<group>"; };
 		606FEF1E1E53EDB1000BEB7C /* SwiftR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		606FEF271E53EDB1000BEB7C /* SwiftR_macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftR_macOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		606FEF3D1E53EDFB000BEB7C /* SwiftR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,33 +122,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6026DEC81E540E52002AFBAB /* macOS */ = {
-			isa = PBXGroup;
-			children = (
-				6026DE781E53F48C002AFBAB /* NSBezierPath+CGPath.swift */,
-				6026DECF1E541A69002AFBAB /* NSTextLabel.swift */,
-			);
-			name = macOS;
-			sourceTree = "<group>";
-		};
-		6026DEC91E540E5E002AFBAB /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				6026DECD1E541566002AFBAB /* UIBezierPath+Cross.swift */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
 		6026DEFE1E5430DF002AFBAB /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6026DEC81E540E52002AFBAB /* macOS */,
-				6026DEC91E540E5E002AFBAB /* iOS */,
+				6059C7A71E5D559C0044CC09 /* iOS */,
+				6059C7A91E5D559C0044CC09 /* macOS */,
 				6026DE731E53F48C002AFBAB /* CALayer+Extensions.swift */,
 				6026DE791E53F48C002AFBAB /* SRColor+Prism.swift */,
 				6026DE7B1E53F48C002AFBAB /* SRView+Center.swift */,
 			);
 			name = extensions;
+			sourceTree = "<group>";
+		};
+		6059C7A71E5D559C0044CC09 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6059C7A81E5D559C0044CC09 /* iOS */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		6059C7A91E5D559C0044CC09 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				6059C7AA1E5D559C0044CC09 /* NSBezierPath+CGPath.swift */,
+				6059C7AB1E5D559C0044CC09 /* NSTextLabel.swift */,
+			);
+			name = macOS;
+			path = ../macOS;
 			sourceTree = "<group>";
 		};
 		606FEF141E53EDB1000BEB7C = {
@@ -188,7 +189,8 @@
 				606FEF551E53EEEA000BEB7C /* Info.plist */,
 				606FEF561E53EEEA000BEB7C /* SwiftR.h */,
 			);
-			path = CommonSource;
+			name = CommonSource;
+			path = CommonSource/common;
 			sourceTree = "<group>";
 		};
 		606FEF571E53EEEA000BEB7C /* CommonTest */ = {
@@ -386,13 +388,13 @@
 			files = (
 				6026DE931E53F48C002AFBAB /* SRView+Center.swift in Sources */,
 				6026DE8B1E53F48C002AFBAB /* HashDrawer.swift in Sources */,
-				6026DED01E541A69002AFBAB /* NSTextLabel.swift in Sources */,
+				6059C7AE1E5D559C0044CC09 /* NSTextLabel.swift in Sources */,
 				6026DE831E53F48C002AFBAB /* CALayer+Extensions.swift in Sources */,
 				6026DE9D1E53F48C002AFBAB /* SRPlotView.swift in Sources */,
 				6026DE951E53F48C002AFBAB /* PrismColor.swift in Sources */,
 				6026DE811E53F48C002AFBAB /* AxesDrawer.swift in Sources */,
+				6059C7AD1E5D559C0044CC09 /* NSBezierPath+CGPath.swift in Sources */,
 				6026DE9B1E53F48C002AFBAB /* SRPlotSegment.swift in Sources */,
-				6026DE8D1E53F48C002AFBAB /* NSBezierPath+CGPath.swift in Sources */,
 				6026DE8F1E53F48C002AFBAB /* SRColor+Prism.swift in Sources */,
 				6026DE891E53F48C002AFBAB /* CountView.swift in Sources */,
 				6026DE911E53F48C002AFBAB /* SRSplashBGView.swift in Sources */,
@@ -424,7 +426,7 @@
 				6026DE8A1E53F48C002AFBAB /* CountView.swift in Sources */,
 				6026DE921E53F48C002AFBAB /* SRSplashBGView.swift in Sources */,
 				6026DE9A1E53F48C002AFBAB /* SRPlotAxe.swift in Sources */,
-				6026DECE1E541566002AFBAB /* UIBezierPath+Cross.swift in Sources */,
+				6059C7AF1E5D55A50044CC09 /* iOS in Sources */,
 				6026DE881E53F48C002AFBAB /* Constants.swift in Sources */,
 				6081F9A01E5C094900BB5DFD /* SRView+Center.swift in Sources */,
 				6026DE981E53F48C002AFBAB /* SRMergePlotView.swift in Sources */,

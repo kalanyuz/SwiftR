@@ -2,9 +2,10 @@
 //  AxesDrawer.swift
 //  Calculator
 //
-//  Created by CS193p Instructor.
-//  Copyright (c) 2015 Stanford University. All rights reserved.
-//
+//  Credit: CS193p, 2015 Stanford University.
+//  Created by Kalanyu Zintus-art on 10/27/15.
+//  Copyright © 2017 KalanyuZ. All rights reserved.
+
 
 open class AxesDrawer
 {

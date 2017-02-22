@@ -6,7 +6,6 @@
 //  Copyright © 2017 kalanyuz. All rights reserved.
 //
 
-//FIXME: add another extension
 open class NSTextLabel: NSTextField {
 	
 	required override public init(frame frameRect: NSRect) {
@@ -23,4 +22,3 @@ open class NSTextLabel: NSTextField {
 	}
 	
 }
-
