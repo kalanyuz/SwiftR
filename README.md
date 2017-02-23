@@ -33,7 +33,7 @@ Please try [SwiftRDemo_macOS project](https://github.com/kalanyuz/SwiftR/tree/ma
 Known Issues
 ------
 * Lower fps when running multiple instances of the plot on iOS
-⋅⋅* This is due to text drawing which is resource intensive and is on my top fix priority
+  * This is due to text drawing which is resource intensive and is on my top fix priority
 
 Question, Issues & Feature requests
 ------
