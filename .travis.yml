@@ -7,6 +7,7 @@ branches:
  - master
 
 xcode_workspace: SwiftR.xcworkspace
+
 env:
   global:
   - LANG=en_US.UTF-8
