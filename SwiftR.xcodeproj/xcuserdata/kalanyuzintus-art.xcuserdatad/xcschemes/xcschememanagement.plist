@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>SwiftR_iOSUITests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>SwiftR_macOSUITests.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>SwiftSigV_iOS.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -33,6 +43,16 @@
 			<true/>
 		</dict>
 		<key>606FEF441E53EDFB000BEB7C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60E7A4581E5D5D2000FA15B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>60E7A4641E5D5D3700FA15B4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

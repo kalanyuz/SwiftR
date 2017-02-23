@@ -6,10 +6,8 @@
 //  Copyright © 2017 kalanyuz. All rights reserved.
 //
 
-#if os(iOS)
 extension UIBezierPath {
 	func line(to point: CGPoint) {
 		self.addLine(to: point)
 	}
 }
-#endif
