@@ -1,0 +1,16 @@
+language: objective-c
+
+osx_image: xcode8.2
+
+branches:
+ only:
+ - master
+
+xcode_workspace: SwiftR.xcworkspace
+
+env:
+  global:
+  - LANG=en_US.UTF-8
+  matrix:
+  - PLATFORM="iOS"
+  - PLATFORM="macOS"
