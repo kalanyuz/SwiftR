@@ -1,6 +1,6 @@
 SwiftRPlot  
 ======
-A Swift('er) module for Real-time time series data visualization
+A Swift('er) framework for Real-time time series data visualization
 
 ![ios/osx](https://cocoapod-badges.herokuapp.com/p/SwiftRPlot/badge.png)
 ![ios/osx](https://cocoapod-badges.herokuapp.com/v/SwiftRPlot/badge.png)
@@ -27,8 +27,20 @@ Features
 
 Getting Started
 ------
+To use SwiftRPlot:
+
+1. Drag the SwiftR.xcodeproj to your project
+2. Go to your target's settings, hit the "+" under the "Embedded Binaries" section, and select the SwiftR.framework
+3. In your sourcefile:
+```
+import SwiftR
+```
 Currently there is no documentation but both platform shares the same API.
 Please try [SwiftRDemo_macOS project](https://github.com/kalanyuz/SwiftR/tree/master/SwiftRDemo_macOS) or [SwiftRDemo_iOS](https://github.com/kalanyuz/SwiftR/tree/master/SwiftRDemo_iOS) to see the example of how you can use the API.
+
+Installing via CocoaPods
+------
+Add pod 'SwiftRPlot' to your Podfile.
 
 Known Issues
 ------
