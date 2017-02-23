@@ -5,6 +5,8 @@ A Swift('er) module for Real-time time series data visualization
 ![ios/osx](https://cocoapod-badges.herokuapp.com/p/SwiftRPlot/badge.png)
 ![ios/osx](https://cocoapod-badges.herokuapp.com/v/SwiftRPlot/badge.png)
 ![Apache](https://cocoapod-badges.herokuapp.com/l/RestKit/badge.png)
+![](https://travis-ci.org/kalanyuz/SwiftR.svg?branch=master)
+
 
 Plotting time series data such as analog signals in real-time can be difficult. 
 Charting solutions currently available are not fine-tuned for real-time plots and can be CPU/RAM intensive so I've decided to address this.
