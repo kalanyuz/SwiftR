@@ -182,8 +182,9 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
             layer.mask!.bounds.size.height = self.layer.bounds.height * 2
             layer.mask!.bounds.size.width = self.layer.bounds.width - self.padding.x
         }
-        var translation = CATransform3DMakeTranslation(self.layer.bounds.width / 2 + self.graph.position.x, self.layer.bounds.height / 2, 0)
-        
+		
+//        var translation = CATransform3DMakeTranslation(self.layer.bounds.width / 2 + self.graph.position.x, self.layer.bounds.height / 2, 0)
+		
         //        FIXME: set this up in initializer somewhere
         //        left to right mode
         if layer.mask != nil {
@@ -191,7 +192,7 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
             layer.mask!.position.y = self.graph.position.y
         }
         // right to left mode
-        translation = CATransform3DMakeTranslation(self.graph.bounds.width + self.graph.position.x, 0, 0)
+        let translation = CATransform3DMakeTranslation(self.graph.bounds.width + self.graph.position.x, self.layer.bounds.height * fabs(self.hashSystem.anchorPoint.y - 0.5), 0)
         layer.mask!.position.x =  (self.layer.bounds.width / 2) + self.padding.x/2
         layer.transform = CATransform3DRotate(translation, CGFloat(M_PI), 0, 1, 0)
     }

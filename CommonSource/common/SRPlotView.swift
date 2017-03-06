@@ -198,10 +198,9 @@
         get {
             //something about anchor point being 0.5
             #if os(macOS)
-            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.frame.height / 2) + graphAxes.position.y -
-            (self.titleField!.frame.height / 2) )
+            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: -self.axeLayer!.graph.pointsPerUnit.y + (self.axeLayer!.graph.pointsPerUnit.y + self.graphAxes.padding.y))
             #elseif os(iOS)
-            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.axeLayer!.layer.frame.height + self.axeLayer!.graph.pointsPerUnit.y)/2)
+            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.axeLayer!.graph.pointsPerUnit.y)/2)
             #endif
         }
     }

@@ -62,8 +62,8 @@ open class SRPlotSegment : NSObject, CALayerDelegate {
                 let channelPos = (axeSystem!.signalType == .split) ? CGFloat(c) * ppy : 0
                 
                 lines[i*2].x = align(CGFloat(i) * (ppx / 60))
+				lines[i*2+1].x = align(CGFloat(i+1) * (ppx / 60))
                 lines[i*2].y = (channelPos + (self.layer.bounds.height * apy)) + (CGFloat(data) * ppy)
-                lines[i*2+1].x = align(CGFloat(i+1) * (ppx / 60))
                 lines[i*2+1].y =  (channelPos + (self.layer.bounds.height * apy)) + (CGFloat(nextData) * ppy)
             }
             //get prism color for each specific channel
