@@ -68,7 +68,7 @@ import SwiftR
         //prepare loading screen
         loadingView.frame = self.view.frame
         progressIndicator.frame = CGRect(origin: CGPoint(x: 50, y: 50), size: CGSize(width: 100, height: 100))
-        progressIndicator.style = .spinningStyle
+        progressIndicator.style = .spinning
         loadingLabel.frame = CGRect(origin: CGPoint(x: progressIndicator.frame.origin.x + progressIndicator.frame.width, y: 0), size: CGSize(width: 100, height: 100))
         loadingLabel.stringValue = loadingText
 		loadingLabel.font = NSFont.boldSystemFont(ofSize:15)
@@ -83,7 +83,7 @@ import SwiftR
         loadingView.wantsLayer = true
         loadingView.layer?.backgroundColor = NSColor.white.cgColor
         
-        loadingView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
+        loadingView.autoresizingMask = [NSView.AutoresizingMask.height, NSView.AutoresizingMask.width]
         self.view.addSubview(loadingView)
 
         
@@ -108,7 +108,7 @@ import SwiftR
     }
 
     
-    func addData() {
+    @objc func addData() {
         count += 1
         let cgCount = sin(Double(count) * 1/60)
         graphView1.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])

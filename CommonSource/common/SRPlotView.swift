@@ -47,9 +47,9 @@
             var maxFrameWidth : CGFloat = 0
             for label in self.graphAxes.yLockLabels {
 				#if os(macOS)
-                let textSize = label.size(withAttributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+                let textSize = label.size(withAttributes: [.font: SRFont.boldSystemFont(ofSize: 20)])
 				#elseif os(iOS)
-				let textSize = label.size(attributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+				let textSize = label.size(withAttributes: [NSAttributedStringKey.font: SRFont.boldSystemFont(ofSize: 20)])
 				#endif
 				
                 if textSize.width > maxFrameWidth {
@@ -160,7 +160,7 @@
         self.performSelector(onMainThread: #selector(SRPlotView.addDataInMainthread(_:)), with: data, waitUntilDone: true)
     }
 	
-	func addDataInMainthread(_ data: [Double]) {
+	@objc func addDataInMainthread(_ data: [Double]) {
         if current == nil {
             current = addSegment()
         }
@@ -292,7 +292,7 @@
 		let nsTitle = title as NSString
 
 		#if os(macOS)
-			let textSize = nsTitle.size(withAttributes: [NSFontAttributeName: SRFont.systemFont(ofSize: 25)])
+			let textSize = nsTitle.size(withAttributes: [NSAttributedStringKey.font: SRFont.systemFont(ofSize: 25)])
 			self.titleField?.stringValue = title
 			self.titleField?.frame = CGRect(x: self.bounds.width/2 - textSize.width/2, y: 0, width: textSize.width, height: textSize.height)
 			

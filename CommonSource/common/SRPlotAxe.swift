@@ -194,7 +194,7 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
         // right to left mode
         let translation = CATransform3DMakeTranslation(self.graph.bounds.width + self.graph.position.x, self.layer.bounds.height * fabs(self.hashSystem.anchorPoint.y - 0.5), 0)
         layer.mask!.position.x =  (self.layer.bounds.width / 2) + self.padding.x/2
-        layer.transform = CATransform3DRotate(translation, CGFloat(M_PI), 0, 1, 0)
+        layer.transform = CATransform3DRotate(translation, CGFloat(Double.pi), 0, 1, 0)
     }
     
     open func action(for layer: CALayer, forKey event: String) -> CAAction? {
@@ -210,10 +210,10 @@ open class SRPlotAxe: NSObject, CALayerDelegate {
             return
         }
         for sublayer in sublayers {
-            sublayer.contentsScale = NSApplication.shared().windows[0].backingScaleFactor
+            sublayer.contentsScale = NSApplication.shared.windows[0].backingScaleFactor
         }
-        self.layer.contentsScale = NSApplication.shared().windows[0].backingScaleFactor
-        self.hashLayer.contentsScale = NSApplication.shared().windows[0].backingScaleFactor
+        self.layer.contentsScale = NSApplication.shared.windows[0].backingScaleFactor
+        self.hashLayer.contentsScale = NSApplication.shared.windows[0].backingScaleFactor
     }
 	#elseif os(iOS)
 	

@@ -150,12 +150,13 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         
         while displaySize < largestSize {
             let nsTitle = NSString(string: title)
-            let attributes = [NSFontAttributeName: SRFont.boldSystemFont(ofSize: displaySize)]
 			
 			#if os(macOS)
+            let attributes = [NSAttributedStringKey.font: SRFont.boldSystemFont(ofSize: displaySize)]
             textSize = nsTitle.size(withAttributes: attributes)
 			#elseif os(iOS)
-			textSize = nsTitle.size(attributes: attributes)
+            let attributes = [NSAttributedStringKey.font: SRFont.boldSystemFont(ofSize: displaySize)]
+			textSize = nsTitle.size(withAttributes: attributes)
 			#endif
 			
             if textSize.width < self.bounds.width * 0.8 {

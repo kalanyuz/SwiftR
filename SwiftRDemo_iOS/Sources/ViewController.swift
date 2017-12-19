@@ -69,7 +69,7 @@ class ViewController: UIViewController, SRSplashViewDelegate {
     }
 
     
-    func addData2() {
+    @objc func addData2() {
 		
 		count += 1
         let cgCount = sin((Double(count) * 1/60))

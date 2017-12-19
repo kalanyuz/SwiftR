@@ -17,10 +17,10 @@ open class SRMergePlotView: SRPlotView {
             self.axeLayer?.maxDataRange = newValue
 			#if os(macOS)
 				
-            let textSize = "\(self.maxDataRange)".size(withAttributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+            let textSize = "\(self.maxDataRange)".size(withAttributes: [.font: SRFont.boldSystemFont(ofSize: 20)])
 			#elseif os(iOS)
 				
-			let textSize = "\(self.maxDataRange)".size(attributes: [NSFontAttributeName: SRFont.boldSystemFont(ofSize: 20)])
+			let textSize = "\(self.maxDataRange)".size(withAttributes: [NSAttributedStringKey.font: SRFont.boldSystemFont(ofSize: 20)])
 			#endif
 			
             self.axeLayer?.padding.x = newValue < 10 ? textSize.width * 3: textSize.width

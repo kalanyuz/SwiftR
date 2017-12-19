@@ -17,7 +17,7 @@ protocol RoundProgressProtocol {
 @IBDesignable class RoundProgressView: NSView {
     fileprivate let innerRing = CAShapeLayer()
     fileprivate let outerRing = CAShapeLayer()
-    fileprivate var state = NSOffState
+    fileprivate var state = NSControl.StateValue.off
     fileprivate let lineWidth : CGFloat = 10
 
     open let titleLabel = NSTextLabel()
@@ -83,19 +83,19 @@ protocol RoundProgressProtocol {
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
-        if let currentContext = NSGraphicsContext.current() {
+        if let currentContext = NSGraphicsContext.current {
         
         //CGPathMoveToPoint(path, nil, 0, 0)
-        //CGPathAddArc(path, nil, 0, 0, 300, 0, CGFloat(M_PI), false)
+        //CGPathAddArc(path, nil, 0, 0, 300, 0, CGFloat(Double.pi), false)
         let path = CGMutablePath()
 //        Swift.print(self.bounds.width)
         var circleSize : CGFloat = min(self.bounds.width/2, self.bounds.height/2)
         let margin = lineWidth + 10
-//        CGPathAddArc(path, nil, self.bounds.midX, self.bounds.midY, circleSize - (lineWidth + innerRing.lineWidth) , CGFloat(-M_PI/2), CGFloat(19 * M_PI / 12.6), true)
+//        CGPathAddArc(path, nil, self.bounds.midX, self.bounds.midY, circleSize - (lineWidth + innerRing.lineWidth) , CGFloat(-Double.pi/2), CGFloat(19 * Double.pi / 12.6), true)
 				let midPoint = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
 				
-				path.addArc(center: midPoint, radius: circleSize - (lineWidth + innerRing.lineWidth), startAngle: CGFloat(-M_PI/2), endAngle: CGFloat(19 * M_PI / 12.6), clockwise: true)
-        //CGPathAddArc(path, nil, 100, 100, 100, 0, (360 * CGFloat(M_PI))/180, true);
+				path.addArc(center: midPoint, radius: circleSize - (lineWidth + innerRing.lineWidth), startAngle: CGFloat(-Double.pi/2), endAngle: CGFloat(19 * Double.pi / 12.6), clockwise: true)
+        //CGPathAddArc(path, nil, 100, 100, 100, 0, (360 * CGFloat(Double.pi))/180, true);
         
         circleSize = min(self.bounds.width, self.bounds.height) - margin
         
@@ -122,7 +122,7 @@ protocol RoundProgressProtocol {
                     //5 - calculate the rotation angle
                     
                     //rotate and translate
-                    currentContext.cgContext.rotate(by: deg2rad(180.0 * CGFloat(i)) + CGFloat(M_PI/2))
+                    currentContext.cgContext.rotate(by: deg2rad(180.0 * CGFloat(i)) + CGFloat(Double.pi/2))
                     currentContext.cgContext.translateBy(x: 0, y: circleSize/2 - markerWidth)
                     currentContext.cgContext.addPath(markerPath)
 
@@ -202,7 +202,7 @@ protocol RoundProgressProtocol {
         
         while displaySize < largestSize {
             let nsTitle = NSString(string: title)
-            let attributes = [NSFontAttributeName: NSFont.boldSystemFont(ofSize: displaySize)]
+            let attributes = [NSAttributedStringKey.font: NSFont.boldSystemFont(ofSize: displaySize)]
             textSize = nsTitle.size(withAttributes: attributes)
             if textSize.width < self.bounds.width - (lineWidth * 2) * 4 {
                 //                Swift.print(displaySize, "increasing")
@@ -216,10 +216,10 @@ protocol RoundProgressProtocol {
     }
     
     override func mouseDown(with theEvent: NSEvent) {
-        state = (state == NSOnState ? NSOffState : NSOnState)
+        state = (state == .on ? .off : .on)
         
         if let delegate = roundDelegate {
-            if state == NSOnState {
+            if state == .on {
                 delegate.roundProgressClicked(self)
                 loadProgressForSeconds(self.loadSeconds)
             } else {
@@ -229,6 +229,6 @@ protocol RoundProgressProtocol {
     }
     
     fileprivate func deg2rad(_ degree: CGFloat) -> CGFloat {
-        return degree * CGFloat(M_PI) / CGFloat(180.0)
+        return degree * CGFloat(Double.pi) / CGFloat(180.0)
     }
 }

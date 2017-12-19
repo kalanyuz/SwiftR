@@ -17,7 +17,7 @@ extension SRView {
     }
 	#endif
 	
-    func fade(toAlpha alpha: CGFloat) {
+    @objc func fade(toAlpha alpha: CGFloat) {
 		#if os(macOS)
         NSAnimationContext.runAnimationGroup({
             (context) -> () in

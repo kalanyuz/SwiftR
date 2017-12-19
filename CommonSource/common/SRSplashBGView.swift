@@ -130,7 +130,7 @@ open class SRSplashBGView: SRView {
             CATransaction.begin()
             CATransaction.setAnimationDuration(0)
             let translate = CATransform3DTranslate(self.splashLayer.transform, self.bounds.maxX, 0, 0)
-            self.splashLayer.transform = CATransform3DRotate(translate,CGFloat(M_PI), 0, -1, 0)
+            self.splashLayer.transform = CATransform3DRotate(translate,CGFloat(Double.pi), 0, -1, 0)
             CATransaction.commit()
         }
         

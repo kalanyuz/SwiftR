@@ -296,15 +296,18 @@ open class HashDrawer
         static let HorizontalOffset: CGFloat = 6
         
         func drawAnchoredToPoint(_ context: CGContext, location: CGPoint, color: SRColor) {
-            let attributes = [
-                NSFontAttributeName : SRFont.boldSystemFont(ofSize: 15),
-                NSForegroundColorAttributeName : color
-            ]
-			
-			#if os(macOS)
+            #if os(macOS)
+                let attributes = [
+                    NSAttributedStringKey.font : SRFont.boldSystemFont(ofSize: 15),
+                    NSAttributedStringKey.foregroundColor : color
+                ]
 				var textRect = CGRect(center: location, size: text.size(withAttributes: attributes))
 			#elseif os(iOS)
-				var textRect = CGRect(center: location, size: text.size(attributes: attributes))
+                let attributes = [
+                    NSAttributedStringKey.font : SRFont.boldSystemFont(ofSize: 15),
+                    NSAttributedStringKey.foregroundColor : color
+                ]
+				var textRect = CGRect(center: location, size: text.size(withAttributes: attributes))
 			#endif
 			
             switch self {
@@ -350,15 +353,18 @@ open class HashDrawer
     
     
     open func getTextRect(_ center: CGPoint, text: String) -> CGRect {
-        let attributes = [
-            NSFontAttributeName : SRFont.boldSystemFont(ofSize: 15),
-            NSForegroundColorAttributeName : color
-        ] as [String : Any]
-		
 		#if os(macOS)
+        let attributes = [
+            NSAttributedStringKey.font.rawValue : SRFont.boldSystemFont(ofSize: 15),
+            NSAttributedStringKey.foregroundColor : color
+            ] as? [NSAttributedStringKey : Any]
         return CGRect(center: center, size: text.size(withAttributes: attributes))
 		#elseif os(iOS)
-		return CGRect(center: center, size: text.size(attributes: attributes))
+        let attributes = [
+            NSAttributedStringKey.font.rawValue : SRFont.boldSystemFont(ofSize: 15),
+            NSAttributedStringKey.foregroundColor : color
+            ] as? [NSAttributedStringKey : Any]
+		return CGRect(center: center, size: text.size(withAttributes: attributes))
 		#endif
     }
     
