@@ -127,7 +127,7 @@
 
     }
     
-    convenience init(frame frameRect: SRRect, title: String, seconds: Double, channels: Int, samplingRatae: CGFloat, padding: CGPoint = CGPoint.zero) {
+    convenience init(frame frameRect: SRRect, title: String, seconds: Double, channels: Int, samplingRate: CGFloat, padding: CGPoint = CGPoint.zero) {
         self.init(frame: frameRect)
         self.totalSecondsToDisplay = CGFloat(seconds)
         self.totalChannelsToDisplay = CGFloat(channels)
@@ -142,7 +142,7 @@
 		#endif
 	
         self.axeLayer!.padding = padding
-        self.axeLayer!.samplingRate = samplingRate
+        self.axeLayer!.samplingRate = Double(samplingRate)
 
         //add layout constraints to the title field
         self.titleField?.translatesAutoresizingMaskIntoConstraints = false
