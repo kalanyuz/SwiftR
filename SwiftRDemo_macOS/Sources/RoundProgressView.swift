@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import Foundation
 import SwiftR
 
 protocol RoundProgressProtocol {

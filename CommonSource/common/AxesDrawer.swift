@@ -150,9 +150,6 @@ open class AxesDrawer
 
     }
 
-
-
-
     // we want the axes and hashmarks to be exactly on pixel boundaries so they look sharp
     // setting contentScaleFactor properly will enable us to put things on the closest pixel boundary
     // if contentScaleFactor is left to its default (1), then things will be on the nearest "point" boundary instead
