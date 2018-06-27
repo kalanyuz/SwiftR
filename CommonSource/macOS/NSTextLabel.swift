@@ -7,7 +7,7 @@
 //
 
 open class NSTextLabel: NSTextField {
-	
+
 	required override public init(frame frameRect: NSRect) {
 		super.init(frame: frameRect)
 		self.isBezeled = false
@@ -16,9 +16,9 @@ open class NSTextLabel: NSTextField {
 		self.isSelectable = false
 		self.font = NSFont.systemFont(ofSize: 15)
 	}
-	
+
 	required public init?(coder: NSCoder) {
 		super.init(coder: coder)
 	}
-	
+
 }

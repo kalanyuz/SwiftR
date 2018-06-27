@@ -50,7 +50,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 @IBDesignable open class CountView: SRView {
-	
+
     open var titleField : SRLabel?
     open var countField : SRLabel?
 
@@ -63,7 +63,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 			#endif
         }
     }
-    
+
     open var directionValue : Int? {
         get {
             return NumberFormatter().number(from: self.countText)?.intValue
@@ -80,7 +80,7 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
             }
         }
     }
-    
+
     open var countText : String = "0" {
         didSet {
             //already has layout constraints, no need for frame adjustment
@@ -92,18 +92,18 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 			#endif
         }
     }
-    
+
     required public init?(coder: NSCoder) {
         super.init(coder: coder)
         titleField = SRLabel(frame: CGRect.zero)
         countField = SRLabel(frame: CGRect.zero)
-        
+
         titleField?.textColor = SRColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
         countField?.textColor = SRColor(red: 250/255.0, green: 250/255.0, blue: 250/255.0, alpha: 1)
 
         self.addSubview(titleField!)
         self.addSubview(countField!)
-        
+
         self.titleField?.font = SRFont.boldSystemFont(ofSize: 20)
         self.countField?.font = SRFont.systemFont(ofSize: 100)
         self.countField?.translatesAutoresizingMaskIntoConstraints = false
@@ -111,53 +111,53 @@ fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
         self.addConstraint(countFieldConstraint)
         countFieldConstraint = NSLayoutConstraint(item: self.countField!, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         self.addConstraint(countFieldConstraint)
-        
+
         self.titleField?.translatesAutoresizingMaskIntoConstraints = false
         let titleFieldConstraint = NSLayoutConstraint(item: self.titleField!, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         self.addConstraint(titleFieldConstraint)
 
 		#if os(macOS)
-			
+
         countField?.stringValue = "0"
         titleField?.stringValue = "Title"
         self.wantsLayer = true
-			
+
 		#elseif os(macOS)
-			
+
 		countField?.text = "0"
 		titleField?.text = "Title"
-			
+
 		#endif
 
     }
-    
+
 	#if os(macOS)
     override open func layout() {
         super.layout()
         countField?.font = SRFont.boldSystemFont(ofSize: resizeFontWithString(countField!.stringValue))
     }
 	#endif
-	
+
     fileprivate func resizeFontWithString(_ title: String) -> CGFloat {
 //        defer {
 //            Swift.print(textSize, self.bounds, displaySize)
 //        }
-        
+
         let smallestSize : CGFloat = 100
         let largestSize : CGFloat = 200
         var textSize = CGSize.zero
         var displaySize = smallestSize
-        
+
         while displaySize < largestSize {
             let nsTitle = NSString(string: title)
             let attributes = [NSFontAttributeName: SRFont.boldSystemFont(ofSize: displaySize)]
-			
+
 			#if os(macOS)
             textSize = nsTitle.size(withAttributes: attributes)
 			#elseif os(iOS)
 			textSize = nsTitle.size(attributes: attributes)
 			#endif
-			
+
             if textSize.width < self.bounds.width * 0.8 {
                 displaySize += 1
             } else {

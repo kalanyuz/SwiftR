@@ -8,7 +8,7 @@
 
 open class PrismColor {
 	required public init() {
-		
+
 	}
     open subscript(index: Int) -> SRColor {
         let colorIndex = index%10
