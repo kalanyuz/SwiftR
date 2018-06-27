@@ -8,10 +8,10 @@
 
 
 public struct SplashBGPosition {
-    var TopLeft = CGPoint(x:0, y:1)
-    var TopRight = CGPoint(x:1, y:1)
-    var BottomLeft = CGPoint(x:0 ,y:0)
-    var BottomRight = CGPoint(x:1, y:0)
+    let TopLeft = CGPoint(x:0, y:1)
+    let TopRight = CGPoint(x:1, y:1)
+    let BottomLeft = CGPoint(x:0 ,y:0)
+    let BottomRight = CGPoint(x:1, y:0)
 }
 
 public enum SplashDirection {
