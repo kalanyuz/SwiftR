@@ -14,23 +14,23 @@ class AxesDrawer
         static let HashmarkSize: CGFloat = 6
     }
     var maxDataRange : Int = 1
-    
+
     //padding parameter, moves the axes further in
     var padding : CGFloat = 0.0
     var color = NSColor.grayColor()
-    
+
     var minimumPointsPerHashmark: CGFloat = 40
-    
+
     // set this from UIView's contentScaleFactor to position axes with maximum accuracy
     var contentScaleFactor: CGFloat = 1
-    
+
     var axesLabel : [Int] = [Int](0...100)
     var yLockLabels = [String](count: 100, repeatedValue: "")
     var xLockLabels = [String](count: 100, repeatedValue: "")
     // use to keep track of the moving axe label
-    
 
-    
+
+
     //public variables for declaring drawing coordinates to data-drawers
     var pointsPerUnit = CGPointZero
     var bounds = CGRectZero
@@ -38,25 +38,25 @@ class AxesDrawer
     var plotFrame = CGRectZero
     var numberOfSubticks : CGFloat = 0
     var displayLabels = true
-    
+
     var anchorPoint = CGPointZero
-    
+
     convenience init(color: NSColor, contentScaleFactor: CGFloat) {
         self.init()
         self.color = color
         self.contentScaleFactor = contentScaleFactor
     }
-    
+
     convenience init(color: NSColor) {
         self.init()
         self.color = color
     }
-    
+
     convenience init(contentScaleFactor: CGFloat) {
         self.init()
         self.contentScaleFactor = contentScaleFactor
     }
-    
+
     // this method is the heart of the AxesDrawer
     // it draws in the current graphic context's coordinate system
     // therefore origin and bounds must be in the current graphics context's coordinate system
@@ -72,97 +72,97 @@ class AxesDrawer
 
         let ppX = (bounds.width - padding) / (xPointsToShow + (displayLabels ? 0.5: 0))
         var ppY = (bounds.height - padding) / (yPointsToShow + (displayLabels ? 0.5: 0))
-        
+
         //TODO: the inner frame of the graph
-        
-        
+
+
         let posX = (bounds.origin.x + padding)// + ((bounds.width - padding) * anchorPoint.x)
         let posY = (bounds.origin.y + padding) + ((bounds.height - padding) * anchorPoint.y)
         let position = CGPoint(x: posX, y: posY )
 
-    
+
         //if pointsPerY is not assigned (or default)
         if yPointsToShow == 0 {
             ppY = ppX
         }
-    
+
         self.pointsPerUnit.x = ppX
         self.pointsPerUnit.y = ppY
         self.bounds = bounds
         self.bounds = bounds
         self.position = position
-    
+
         let path = NSBezierPath()
         CGContextBeginPath(context)
-    
+
         path.lineWidth = 1
-        
+
         let lineHalfWidth = path.lineWidth / 2
-        
+
         CGContextSetFillColorWithColor(context, NSColor.whiteColor().CGColor)
         CGContextFillRect(context, CGRect(x: bounds.minX + padding, y: bounds.minY + padding, width:  bounds.width, height: bounds.height))
-        
+
         //draw x-axis
         path.moveToPoint(CGPoint(x: bounds.minX + padding, y: align(position.y + lineHalfWidth)))
         path.lineToPoint(CGPoint(x: bounds.maxX, y: align(position.y + lineHalfWidth)))
-        
+
         //draw y-axis
         path.moveToPoint(CGPoint(x: align(position.x + lineHalfWidth), y: align(bounds.minY + padding) ))
         path.lineToPoint(CGPoint(x: align(position.x + lineHalfWidth), y: bounds.maxY))
-        
+
         //closing the borders on all four sides (incase where the origin is not (0,0)
         path.moveToPoint(CGPoint(x: bounds.minX + padding, y: bounds.minY + padding + lineHalfWidth))
         path.lineToPoint(CGPoint(x: bounds.minX + padding, y: bounds.maxY - lineHalfWidth))
 
-        
+
         path.moveToPoint(CGPoint(x: bounds.minX + padding, y: bounds.maxY - lineHalfWidth))
         path.lineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY - lineHalfWidth))
-        
+
         path.moveToPoint(CGPoint(x: bounds.maxX - lineHalfWidth, y: bounds.maxY - lineHalfWidth))
         path.lineToPoint(CGPoint(x: bounds.maxX - lineHalfWidth, y: bounds.minY + padding))
-        
+
         path.moveToPoint(CGPoint(x: bounds.minX + padding, y: bounds.minY + padding + lineHalfWidth))
         path.lineToPoint(CGPoint(x: bounds.maxX, y: bounds.minY + padding + lineHalfWidth))
-        
+
         CGContextAddPath(context, path.toCGPath())
         CGContextSetStrokeColorWithColor(context, color.CGColor)
         CGContextSetLineWidth(context, 1)
         CGContextStrokePath(context)
         path.removeAllPoints()
-        
-        
+
+
         var gridSpacing : CGFloat
         //for now, disabling this decreases 30% of CPU usage
         CGContextBeginPath(context)
-    
+
         for gridSpacing = align(bounds.minX + padding) ; gridSpacing < bounds.maxX ; gridSpacing += align(ppX)/2 {
             path.moveToPoint(CGPoint(x: align(gridSpacing), y: align(bounds.minY + padding)))
             path.lineToPoint(CGPoint(x: align(gridSpacing), y: bounds.maxY))
         }
-        
+
         for gridSpacing = align(bounds.minY + padding) ; gridSpacing < bounds.maxY ; gridSpacing += align(ppY)/2 {
             path.moveToPoint(CGPoint(x: bounds.minX + padding, y: align(gridSpacing)))
             path.lineToPoint(CGPoint(x: bounds.maxX, y: align(gridSpacing)))
         }
-    
+
         CGContextAddPath(context, path.toCGPath())
         CGContextSetStrokeColorWithColor(context, color.CGColor)
         CGContextSetLineWidth(context, 0.25)
         CGContextStrokePath(context)
-    
+
         //TODO: addition fine-tuning for general purpose
         var axisPosition = position
         axisPosition.x += axeOrigin.x
         axisPosition.y += axeOrigin.y
 
-        
+
         CGContextSetFillColorWithColor(context, NSColor.darkGrayColor().CGColor)
         drawHashmarksInRect(context,bounds: bounds, origin:axisPosition, pointsPerUnit: align(ppX))
         drawFixedHashmarksInRect(context, bounds: bounds, origin: position, pointsPerUnit: align(ppY))
-        
+
     }
 
-    
+
     // the rest of this class is private
     private func drawFixedHashmarksInRect(context: CGContext, bounds: CGRect, origin: CGPoint, pointsPerUnit: CGFloat)
     {
@@ -177,10 +177,10 @@ class AxesDrawer
             } else {
                 unitsPerHashmark = floor(unitsPerHashmark)
             }
-            
+
             let pointsPerHashmark = pointsPerUnit * unitsPerHashmark
             //usually equals to pointsPerUnit
-            
+
             // figure out which is the closest set of hashmarks (radiating out from the origin) that are in bounds
             var startingHashmarkRadius: CGFloat = 1
             if !CGRectContainsPoint(bounds, origin) {
@@ -195,7 +195,7 @@ class AxesDrawer
                 }
                 startingHashmarkRadius = floor(startingHashmarkRadius)
             }
-            
+
             // now create a bounding box inside whose edges those four hashmarks lie
 //            let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
              let subBboxSize = pointsPerHashmark / numberOfSubticks * startingHashmarkRadius * 2
@@ -205,18 +205,18 @@ class AxesDrawer
 
             // formatter for the hashmark labels
             let formatter = NSNumberFormatter()
-            
+
             formatter.maximumFractionDigits = 3
             //Int(-log10(Double(unitsPerHashmark)))
             formatter.minimumIntegerDigits = 1
-            
+
             var i = 0
             var paddedBounds = bounds
             paddedBounds.origin.y += padding
 
 //            while !CGRectContainsRect(bbox, self.bounds) {
-            
-                
+
+
                 while numberOfSubticks > 0 && !CGRectContainsRect(subBbox, self.bounds)
                 {
                     var label = formatter.stringFromNumber((origin.x-subBbox.minX)/pointsPerUnit * CGFloat(self.maxDataRange))!
@@ -225,7 +225,7 @@ class AxesDrawer
                     if let topHashmarkPoint = alignedPoint(x: origin.x, y: subBbox.minY, insideBounds:paddedBounds) {
                         drawHashmarkAtLocation(context, location: topHashmarkPoint, .Left("-\(label)"))
                     }
-                    
+
                     if let bottomHashmarkPoint = alignedPoint(x: origin.x, y: subBbox.maxY, insideBounds:paddedBounds) {
                         if !yLockLabels[i].isEmpty {
                             label = yLockLabels[i]
@@ -236,16 +236,16 @@ class AxesDrawer
 
                     ++i
                 }
-                
+
 //                var label = formatter.stringFromNumber((origin.x-bbox.minX)/pointsPerUnit)!
 //                if !yLockLabels[i].isEmpty {
 //                    label = yLockLabels[i]
 //                }
-//                
+//
 ////                if let topHashmarkPoint = alignedPoint(x: origin.x, y: bbox.minY, insideBounds:bounds) {
 ////                    drawHashmarkAtLocation(topHashmarkPoint, .Left("-\(label)"))
 ////                }
-//                
+//
 //                if let bottomHashmarkPoint = alignedPoint(x: origin.x, y: bbox.maxY, insideBounds:bounds) {
 //                    drawHashmarkAtLocation(context, location: bottomHashmarkPoint, .Left(label))
 //                }
@@ -256,7 +256,7 @@ class AxesDrawer
 
         }
     }
-    
+
     private func drawHashmarksInRect(context: CGContext, bounds: CGRect, origin: CGPoint, pointsPerUnit: CGFloat)
     {
         let fixedOrigin = origin
@@ -272,11 +272,11 @@ class AxesDrawer
             } else {
                 unitsPerHashmark = floor(unitsPerHashmark)
             }
-            
+
 
             let pointsPerHashmark = pointsPerUnit * unitsPerHashmark
             //usually equals to pointsPerUnit
-            
+
             // figure out which is the closest set of hashmarks (radiating out from the origin) that are in bounds
             var startingHashmarkRadius: CGFloat = 1
             if !CGRectContainsPoint(bounds, fixedOrigin) {
@@ -291,16 +291,16 @@ class AxesDrawer
                 }
                 startingHashmarkRadius = floor(startingHashmarkRadius)
             }
-            
+
             // now create a bounding box inside whose edges those four hashmarks lie
             let bboxSize = pointsPerHashmark * startingHashmarkRadius * 2
             var bbox = CGRect(center: origin, size: CGSize(width: bboxSize, height: bboxSize))
-            
+
             // formatter for the hashmark labels
             let formatter = NSNumberFormatter()
             formatter.maximumFractionDigits = Int(-log10(Double(unitsPerHashmark)))
             formatter.minimumIntegerDigits = 1
-            
+
             //causing failures when the origin goes out of bound
 //            for var i = 0; i < Int(ceil(bounds.width/(bboxSize/2))); i++ {
             var paddedBounds = bounds
@@ -309,12 +309,12 @@ class AxesDrawer
             {
 
                 let label = formatter.stringFromNumber((origin.x-bbox.minX)/pointsPerUnit)!
-                
+
                 if let leftHashMarkPoint = alignedPoint(x: bbox.minX, y: origin.y, insideBounds:paddedBounds) {
                     drawHashmarkAtLocation(context, location: leftHashMarkPoint, .Top("-\(label)"))
                 }
 
-                
+
                 if let rightHashmarkPoint = alignedPoint(x: bbox.maxX, y: origin.y, insideBounds:paddedBounds) {
                     drawHashmarkAtLocation(context, location: rightHashmarkPoint, .Top(label))
                 }
@@ -323,8 +323,8 @@ class AxesDrawer
             }
         }
     }
-    
-    
+
+
     private func drawHashmarkAtLocation(context: CGContext, location: CGPoint, _ text: AnchoredText)
     {
         var dx: CGFloat = 0, dy: CGFloat = 0
@@ -334,30 +334,30 @@ class AxesDrawer
             case .Top: dy = Constants.HashmarkSize / 2
             case .Bottom: dy = Constants.HashmarkSize / 2
         }
-        
+
         let path = NSBezierPath()
         path.moveToPoint(CGPoint(x: location.x-dx, y: location.y-dy))
         path.lineToPoint(CGPoint(x: location.x+dx, y: location.y+dy))
-        
+
         CGContextBeginPath(context)
         CGContextAddPath(context, path.toCGPath())
         CGContextStrokePath(context)
-        
+
         if displayLabels {
             text.drawAnchoredToPoint(context, location: location, color: color)
         }
     }
-    
+
     private enum AnchoredText
     {
         case Left(String)
         case Right(String)
         case Top(String)
         case Bottom(String)
-        
+
         static let VerticalOffset: CGFloat = 3
         static let HorizontalOffset: CGFloat = 6
-        
+
         func drawAnchoredToPoint(context: CGContext, location: CGPoint, color: NSColor) {
             let attributes = [
                 NSFontAttributeName : NSFont(name: "Helvetica Neue", size: 12)!,
@@ -370,15 +370,15 @@ class AxesDrawer
             case Bottom: textRect.origin.y -= textRect.size.height / 2 + AnchoredText.VerticalOffset
             case Right: textRect.origin.x -= textRect.size.width / 2 + AnchoredText.HorizontalOffset
             }
-            
+
             //Core text draw function
             let gString = NSMutableAttributedString(string:text, attributes:attributes)
             let line = CTLineCreateWithAttributedString(gString)
-            
+
             CGContextSetTextPosition(context, textRect.origin.x, textRect.origin.y);
             CTLineDraw(line, context);
         }
-        
+
         var text: String {
             switch self {
             case Left(let text): return text
@@ -388,12 +388,12 @@ class AxesDrawer
             }
         }
     }
-    
+
     // we want the axes and hashmarks to be exactly on pixel boundaries so they look sharp
     // setting contentScaleFactor properly will enable us to put things on the closest pixel boundary
     // if contentScaleFactor is left to its default (1), then things will be on the nearest "point" boundary instead
     // the lines will still be sharp in that case, but might be a pixel (or more theoretically) off of where they should be
-    
+
     private func alignedPoint(x x: CGFloat, y: CGFloat, insideBounds: CGRect? = nil) -> CGPoint?
     {
         let point = CGPoint(x: align(x), y: align(y))
@@ -404,7 +404,7 @@ class AxesDrawer
         }
         return point
     }
-    
+
     private func align(coordinate: CGFloat) -> CGFloat {
         return round(coordinate * contentScaleFactor) / contentScaleFactor
     }

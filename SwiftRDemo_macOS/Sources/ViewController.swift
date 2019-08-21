@@ -17,18 +17,18 @@ import SwiftR
             graphView1.totalSecondsToDisplay = 10.0
         }
     }
-	
+
     @IBOutlet weak var graphView2: SRPlotView! {
         didSet {
             graphView2.title = "Split"
             graphView2.totalSecondsToDisplay = 10.0
         }
     }
-	
+
 	@IBOutlet weak var graphView4: SRPlotView! {
 		didSet {
 			graphView4.title = "Split"
-			
+
 		}
 	}
     @IBOutlet weak var graphView3: SRMergePlotView! {
@@ -37,13 +37,13 @@ import SwiftR
             graphView3.totalSecondsToDisplay = 10.0
         }
     }
-	
+
     @IBOutlet weak var backgroundView: SRSplashBGView! {
         didSet {
             backgroundView.splashFill(toColor: NSColor(red: 241/255.0, green: 206/255.0, blue: 51/255.0, alpha: 1), .left)
         }
     }
-	
+
     fileprivate let loadingView = SRSplashBGView(frame: CGRect.zero)
     fileprivate var loadingLabel = NSTextLabel(frame: CGRect.zero)
     fileprivate var loadingText = "Status : Now Loading.." {
@@ -52,17 +52,17 @@ import SwiftR
             loadingLabel.sizeToFit()
         }
     }
-	
+
     fileprivate let progressIndicator = NSProgressIndicator(frame: CGRect.zero)
-	
+
 	fileprivate var anotherDataTimer: Timer?
 	var count = 0
 
     fileprivate var fakeLoadTimer: Timer?
     fileprivate var samplingRate = 1000;
 
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //prepare loading screen
@@ -75,18 +75,18 @@ import SwiftR
         loadingLabel.sizeToFit()
         loadingLabel.frame.origin.y = progressIndicator.frame.origin.y + (progressIndicator.frame.width/2) - (loadingLabel.frame.height/2)
         loadingLabel.lineBreakMode = .byTruncatingTail
-        
-        
+
+
         loadingView.addSubview(loadingLabel)
         loadingView.addSubview(progressIndicator)
         progressIndicator.startAnimation(nil)
         loadingView.wantsLayer = true
         loadingView.layer?.backgroundColor = NSColor.white.cgColor
-        
+
         loadingView.autoresizingMask = [.viewHeightSizable, .viewWidthSizable]
         self.view.addSubview(loadingView)
 
-        
+
 		anotherDataTimer = Timer(timeInterval:1/60, target: self, selector: #selector(ViewController.addData), userInfo: nil, repeats: true)
         RunLoop.current.add(anotherDataTimer!, forMode: RunLoopMode.commonModes)
 
@@ -98,16 +98,16 @@ import SwiftR
         graphView3.totalChannelsToDisplay = 6
 
     }
-    
+
     override func viewWillDisappear() {
-        
+
     }
-    
+
     func systemStartup() {
         loadingView.fade(toAlpha: 0)
     }
 
-    
+
     func addData() {
         count += 1
         let cgCount = sin(Double(count) * 1/60)

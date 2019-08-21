@@ -7,7 +7,7 @@
 //
 
 extension CALayer {
-    
+
     /**
     Just testing documentation using Markdown
     - returns: Bool
@@ -19,7 +19,7 @@ extension CALayer {
         if self.superlayer == nil {
             return false
         }
-        
+
         return centerInLayer(self.superlayer!)
     }
 
@@ -28,7 +28,7 @@ extension CALayer {
         //success
         return true
     }
-	
+
 	func fadeBackground(toColor color: SRColor, duration: Double, timing: String = kCAMediaTimingFunctionEaseOut) {
 		CATransaction.begin()
 		let animation = CABasicAnimation(keyPath: "backgroundColor")
@@ -39,8 +39,8 @@ extension CALayer {
 		animation.timingFunction = CAMediaTimingFunction(name: timing)
 		animation.toValue = SRColor.blue.cgColor
 		self.add(animation, forKey: "backgroundColor")
-		
+
 		CATransaction.commit()
 	}
-	
+
 }

@@ -7,7 +7,6 @@
 //
 
 #if os(iOS)
-	import Foundation
 	import UIKit
 	public typealias SRColor = UIColor
 	public typealias SRView = UIView
